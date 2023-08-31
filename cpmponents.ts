@@ -1,19 +1,43 @@
 <template>
-  <div id="app">
-    <router-view />
-  </div>
+  <header class="app-header">
+    <div class="logo">
+      Моё Приложение
+    </div>
+    <nav class="main-nav">
+      <a href="#" @click="logout">Выйти</a>
+    </nav>
+  </header>
 </template>
 
 <script setup>
-// Логика скрипта, если требуется
+import { ref } from 'vue';
+
+const logout = () => {
+  // здесь ваш код для выхода из системы, например:
+  localStorage.removeItem('user');
+  window.location.reload();
+};
 </script>
 
 <style>
-/* Глобальные стили приложения */
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+.app-header {
+  background-color: #4CAF50;
+  color: white;
+  padding: 15px;
   text-align: center;
-  color: #2c3e50;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  float: left;
+}
+
+.main-nav {
+  float: right;
 }
 </style>
+
 
