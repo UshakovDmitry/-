@@ -40,3 +40,17 @@ const logout = () => {
 </style>
 
 
+
+
+
+.navbar {
+  position: relative; /* Изменили с fixed на relative */
+  top: 0;
+  left: 0;
+  width: 200px;
+  background-color: #333;
+  color: white;
+  overflow: auto;
+}
+
+
