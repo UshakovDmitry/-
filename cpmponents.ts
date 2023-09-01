@@ -1,56 +1,74 @@
 <template>
-  <header class="app-header">
-    <div class="logo">
-      Моё Приложение
-    </div>
-    <nav class="main-nav">
-      <a href="#" @click="logout">Выйти</a>
-    </nav>
-  </header>
+  <div class="navbar">
+    <router-link to="/dashboard">
+      <IconComponent
+        :сonfig="{
+          name: 'dashboardIcon',
+          color: isActive ? '#01A254' : '#23362D4D',
+          width: 24,
+          height: 24,
+        }"
+      >
+      </IconComponent>
+    </router-link>
+
+    <router-link to="/map">
+      <IconComponent
+        :сonfig="{
+          name: 'mapIcon',
+          color: isActive ? '#01A254' : '#23362D4D',
+          width: 24,
+          height: 24,
+        }"
+      >
+      </IconComponent>
+    </router-link>
+
+    <router-link to="/applications">
+      <IconComponent
+        :сonfig="{
+          name: 'assignmentIcon',
+          color: isActive ? '#01A254' : '#23362D4D',
+          width: 24,
+          height: 24,
+        }"
+      >
+      </IconComponent>
+    </router-link>
+
+    <router-link to="/delivery">
+      <IconComponent
+        :сonfig="{
+          name: 'peopleIcon',
+          color: isActive ? '#01A254' : '#23362D4D',
+          width: 24,
+          height: 24,
+        }"
+      >
+      </IconComponent>
+    </router-link>
+
+    <router-link to="/transport">
+      <IconComponent
+        :сonfig="{
+          name: 'carIcon',
+          color: isActive ? '#01A254' : '#23362D4D',
+          width: 24,
+          height: 24,
+        }"
+      >
+      </IconComponent>
+    </router-link>
+  </div>
 </template>
 
-<script setup>
-import { ref } from 'vue';
+<script setup lang="ts">
+import IconComponent from '../components/global/icon/icon.component.vue';
+// import { computed } from 'vue';
+import { useRoute } from 'vue-router';
 
-const logout = () => {
-  // здесь ваш код для выхода из системы, например:
-  localStorage.removeItem('user');
-  window.location.reload();
+const route = useRoute();
+const isActive = (path: string): boolean => {
+  return route.path === path;
 };
 </script>
-
-<style>
-.app-header {
-  background-color: #4CAF50;
-  color: white;
-  padding: 15px;
-  text-align: center;
-  width: 100%;
-  top: 0;
-  z-index: 1000;
-}
-
-.logo {
-  float: left;
-}
-
-.main-nav {
-  float: right;
-}
-</style>
-
-
-
-
-
-.navbar {
-  position: relative; /* Изменили с fixed на relative */
-  top: 0;
-  left: 0;
-  width: 200px;
-  background-color: #333;
-  color: white;
-  overflow: auto;
-}
-
-
