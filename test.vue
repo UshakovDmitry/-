@@ -1,150 +1,41 @@
-this.transport = [
-      {
-        model: 'Mercedes-Benz',
-        number: 'A 123 AA 77',
-        type: 'Газель',
-        volume: '4.5',
-        loadCapacity: '1.5',
-        city: 'Москва',
-        isActive: true,
-        shedule: 'Пн-Пт 9:00-18:00',
-        hasDriver: true,
-      },
-      {
-        model: 'Mercedes-Benz',
-        number: 'A 123 AA 77',
-        type: 'Газель',
-        volume: '4.5',
-        loadCapacity: '1.5',
-        city: 'Москва',
-        isActive: true,
-        shedule: 'Пн-Пт 9:00-18:00',
-        hasDriver: true,
-      },
-      {
-        model: 'Mercedes-Benz',
-        number: 'A 123 AA 77',
-        type: 'Газель',
-        volume: '4.5',
-        loadCapacity: '1.5',
-        city: 'Москва',
-        isActive: true,
-        shedule: 'Пн-Пт 9:00-18:00',
-        hasDriver: true,
-      },
-      {
-        model: 'Mercedes-Benz',
-        number: 'A 123 AA 77',
-        type: 'Газель',
-        volume: '4.5',
-        loadCapacity: '1.5',
-        city: 'Москва',
-        isActive: true,
-        shedule: 'Пн-Пт 9:00-18:00',
-        hasDriver: true,
-      },
-      {
-        model: 'Mercedes-Benz',
-        number: 'A 123 AA 77',
-        type: 'Газель',
-        volume: '4.5',
-        loadCapacity: '1.5',
-        city: 'Москва',
-        isActive: true,
-        shedule: 'Пн-Пт 9:00-18:00',
-        hasDriver: true,
-      },
-      {
-        model: 'Mercedes-Benz',
-        number: 'A 123 AA 77',
-        type: 'Газель',
-        volume: '4.5',
-        loadCapacity: '1.5',
-        city: 'Москва',
-        isActive: true,
-        shedule: 'Пн-Пт 9:00-18:00',
-        hasDriver: true,
-      },
-      {
-        model: 'Mercedes-Benz',
-        number: 'A 123 AA 77',
-        type: 'Газель',
-        volume: '4.5',
-        loadCapacity: '1.5',
-        city: 'Москва',
-        isActive: true,
-        shedule: 'Пн-Пт 9:00-18:00',
-        hasDriver: true,
-      },
-      {
-        model: 'Mercedes-Benz',
-        number: 'A 123 AA 77',
-        type: 'Газель',
-        volume: '4.5',
-        loadCapacity: '1.5',
-        city: 'Москва',
-        isActive: true,
-        shedule: 'Пн-Пт 9:00-18:00',
-        hasDriver: true,
-      },
-      {
-        model: 'Mercedes-Benz',
-        number: 'A 123 AA 77',
-        type: 'Газель',
-        volume: '4.5',
-        loadCapacity: '1.5',
-        city: 'Москва',
-        isActive: true,
-        shedule: 'Пн-Пт 9:00-18:00',
-        hasDriver: true,
-      },
-      {
-        model: 'Mercedes-Benz',
-        number: 'A 123 AA 77',
-        type: 'Газель',
-        volume: '4.5',
-        loadCapacity: '1.5',
-        city: 'Москва',
-        isActive: true,
-        shedule: 'Пн-Пт 9:00-18:00',
-        hasDriver: true,
-      },
-      {
-        model: 'Mercedes-Benz',
-        number: 'A 123 AA 77',
-        type: 'Газель',
-        volume: '4.5',
-        loadCapacity: '1.5',
-        city: 'Москва',
-        isActive: true,
-        shedule: 'Пн-Пт 9:00-18:00',
-        hasDriver: true,
-      },
-      {
-        model: 'Mercedes-Benz',
-        number: 'A 123 AA 77',
-        type: 'Газель',
-        volume: '4.5',
-        loadCapacity: '1.5',
-        city: 'Москва',
-        isActive: true,
+<!-- Pagination.vue -->
+<template>
+  <div class="pagination">
+    <button :disabled="currentPage === 1" @click="changePage(currentPage - 1)">
+      Previous
+    </button>
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <button :disabled="currentPage === totalPages" @click="changePage(currentPage + 1)">
+      Next
+    </button>
+  </div>
+</template>
 
-        shedule: 'Пн-Пт 9:00-18:00',
-        hasDriver: true,
-      },
-    ];
+<script setup>
+import { ref, defineProps, defineEmits } from "vue";
 
+const props = defineProps({
+  totalPages: Number,
+  initialPage: {
+    type: Number,
+    default: 1,
+  },
+});
 
+const currentPage = ref(props.initialPage);
+const emits = defineEmits(["page-change"]);
 
+const changePage = (newPage) => {
+  if (newPage >= 1 && newPage <= props.totalPages) {
+    currentPage.value = newPage;
+    emits("page-change", newPage);
+  }
+};
+</script>
 
-
-
-
-
-
-
-
-
+<style scoped>
+/* ... ваш CSS ... */
+</style>
 
 
 
