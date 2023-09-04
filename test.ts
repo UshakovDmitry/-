@@ -1,72 +1,135 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Auth from '../views/Auth.vue'
-import Layout from '../views/Layout.vue'
-import Main from '../views/Main.vue'
-import Map from '../views/Map.vue'
-import Orders from '../views/Orders.vue'
-import Detail from '../views/Detail.vue'
-import Search from '../views/Search.vue'
-
-const routes: Array<RouteRecordRaw> = [
-  {
-    path: '/auth',
-    name: 'Auth',
-    component: Auth,
-    meta: {
-      public: true,
-    }
-  },
-  {
-    path: '/',
-    component: Layout,
-    meta: {},
-    children: [
+ this.transport = [
       {
-        path: '',
-        redirect: 'main'
+        model: 'Mercedes-Benz',
+        number: 'A 123 AA 77',
+        type: 'Газель',
+        volume: '4.5',
+        loadCapacity: '1.5',
+        city: 'Москва',
+        isActive: true,
+        shedule: 'Пн-Пт 9:00-18:00',
+        hasDriver: true,
       },
       {
-        path: 'main',
-        name: 'Main',
-        component: Main,
+        model: 'Mercedes-Benz',
+        number: 'A 123 AA 77',
+        type: 'Газель',
+        volume: '4.5',
+        loadCapacity: '1.5',
+        city: 'Москва',
+        isActive: true,
+        shedule: 'Пн-Пт 9:00-18:00',
+        hasDriver: true,
       },
       {
-        path: 'map',
-        name: 'Map',
-        component: Map,
+        model: 'Mercedes-Benz',
+        number: 'A 123 AA 77',
+        type: 'Газель',
+        volume: '4.5',
+        loadCapacity: '1.5',
+        city: 'Москва',
+        isActive: true,
+        shedule: 'Пн-Пт 9:00-18:00',
+        hasDriver: true,
       },
       {
-        path: 'orders',
-        name: 'Orders',
-        component: Orders,
+        model: 'Mercedes-Benz',
+        number: 'A 123 AA 77',
+        type: 'Газель',
+        volume: '4.5',
+        loadCapacity: '1.5',
+        city: 'Москва',
+        isActive: true,
+        shedule: 'Пн-Пт 9:00-18:00',
+        hasDriver: true,
       },
       {
-        path: 'detail',
-        name: 'Detail',
-        component: Detail,
+        model: 'Mercedes-Benz',
+        number: 'A 123 AA 77',
+        type: 'Газель',
+        volume: '4.5',
+        loadCapacity: '1.5',
+        city: 'Москва',
+        isActive: true,
+        shedule: 'Пн-Пт 9:00-18:00',
+        hasDriver: true,
       },
       {
-        path: 'search',
-        name: 'Search',
-        component: Search,
-      }
-    ]
-  }
-]
+        model: 'Mercedes-Benz',
+        number: 'A 123 AA 77',
+        type: 'Газель',
+        volume: '4.5',
+        loadCapacity: '1.5',
+        city: 'Москва',
+        isActive: true,
+        shedule: 'Пн-Пт 9:00-18:00',
+        hasDriver: true,
+      },
+      {
+        model: 'Mercedes-Benz',
+        number: 'A 123 AA 77',
+        type: 'Газель',
+        volume: '4.5',
+        loadCapacity: '1.5',
+        city: 'Москва',
+        isActive: true,
+        shedule: 'Пн-Пт 9:00-18:00',
+        hasDriver: true,
+      },
+      {
+        model: 'Mercedes-Benz',
+        number: 'A 123 AA 77',
+        type: 'Газель',
+        volume: '4.5',
+        loadCapacity: '1.5',
+        city: 'Москва',
+        isActive: true,
+        shedule: 'Пн-Пт 9:00-18:00',
+        hasDriver: true,
+      },
+      {
+        model: 'Mercedes-Benz',
+        number: 'A 123 AA 77',
+        type: 'Газель',
+        volume: '4.5',
+        loadCapacity: '1.5',
+        city: 'Москва',
+        isActive: true,
+        shedule: 'Пн-Пт 9:00-18:00',
+        hasDriver: true,
+      },
+      {
+        model: 'Mercedes-Benz',
+        number: 'A 123 AA 77',
+        type: 'Газель',
+        volume: '4.5',
+        loadCapacity: '1.5',
+        city: 'Москва',
+        isActive: true,
+        shedule: 'Пн-Пт 9:00-18:00',
+        hasDriver: true,
+      },
+      {
+        model: 'Mercedes-Benz',
+        number: 'A 123 AA 77',
+        type: 'Газель',
+        volume: '4.5',
+        loadCapacity: '1.5',
+        city: 'Москва',
+        isActive: true,
+        shedule: 'Пн-Пт 9:00-18:00',
+        hasDriver: true,
+      },
+      {
+        model: 'Mercedes-Benz',
+        number: 'A 123 AA 77',
+        type: 'Газель',
+        volume: '4.5',
+        loadCapacity: '1.5',
+        city: 'Москва',
+        isActive: true,
 
-const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes
-})
-
-router.beforeEach((to, from, next) => {
-  const isPublic = to.meta.public
-  const loggedIn = localStorage.getItem('user')
-
-  if (!isPublic && !loggedIn) {
-    return next({ path: '/auth' })
-  }
-  next()
-})
-
-export default router
+        shedule: 'Пн-Пт 9:00-18:00',
+        hasDriver: true,
+      },
+    ];
