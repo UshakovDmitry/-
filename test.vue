@@ -1,15 +1,17 @@
 <template>
-  <!-- Контейнер для поля поиска -->
+  <!-- Контейнер для поля поиска и иконки -->
   <div class="search-container">
+    <div class="icon-wrapper">
+      <IconComponent
+        :сonfig="{
+          name: 'search',
+          color: '#23362D4D',
+          width: 24,
+          height: 24,
+        }"
+      ></IconComponent>
+    </div>
     <!-- Поле ввода -->
-    <IconComponent
-      :сonfig="{
-        name: 'search',
-        color: '#23362D4D',
-        width: 24,
-        height: 24,
-      }"
-    ></IconComponent>
     <input
       type="text"
       :value="searchValue"
@@ -20,34 +22,19 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { ref } from 'vue';
-import IconComponent from '../../../global/icon/icon.component.vue';
-const props = defineProps<{
-  placeholder: string;
-}>();
-// Определяем эмиттеры для событий
-const emits = defineEmits(['onSearch']);
-
-// Состояние для хранения значения поля поиска
-const searchValue = ref('');
-
-// Функция для обновления значения поиска
-const updateSearch = (event: Event) => {
-  // Получаем текущее значение из поля ввода
-  const value = (event.target as HTMLInputElement).value;
-
-  // Обновляем локальное состояние
-  searchValue.value = value;
-
-  // Эмитим событие с новым значением для родительского компонента
-  emits('onSearch', value);
-};
-</script>
-
 <style scoped>
 .search-container {
-  /* Стили для контейнера */
+  /* Расположение иконки и поля ввода в одной строке */
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.icon-wrapper {
+  /* Позиционирование иконки внутри поля ввода */
+  position: absolute;
+  left: 16px; /* Расстояние от левого края поля ввода */
+  z-index: 1; /* Поверх поля ввода */
 }
 
 .search-input {
@@ -55,10 +42,13 @@ const updateSearch = (event: Event) => {
   border-radius: 16px;
   background: #f2f3f5;
   padding: 12px 16px;
+  padding-left: 40px; /* Добавляем отступ слева, чтобы текст не перекрывал иконку */
   font-size: 14px;
   border: none;
   outline: transparent;
   color: hsl(152, 21%, 17%);
   width: 100%;
+  position: relative;
+  z-index: 0; /* Под иконкой */
 }
 </style>
