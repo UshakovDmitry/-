@@ -1,3 +1,64 @@
+
+<template>
+  <div class="dropdown">
+    <div class="dropdown__header">
+      <div class="dropdown__btn" @click="() => emits('onToggle')">
+        <p>
+          {{ currentValue.length ? currentValue : 'Выберите город' }}
+        </p>
+        <div>
+          <IconComponent
+            :сonfig="{
+              name: 'arrow_forward',
+              color: 'var(--black)',
+              scale: 1,
+            }"
+          ></IconComponent>
+        </div>
+      </div>
+    </div>
+    <transition name="fade">
+      <div
+        v-if="isOpened"
+        class="dropdown__body"
+        :style="{ width: width + 'px' }"
+      >
+        <form class="search-input-container"></form>
+        <ul class="dropdown__list">
+          <li
+            v-for="item in items"
+            class="dropdown__item dropdown-item"
+            :class="{ active: item }"
+            @click="
+              () => {
+                emits('onSelect', item);
+              }
+            "
+          >
+            <div class="dropdown-item__name">
+              {{ item }}
+            </div>
+          </li>
+        </ul>
+      </div>
+    </transition>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import IconComponent from '../../../components/global/icon/icon.component.vue';
+ defineProps<{
+  items: any[];
+  isOpened: boolean;
+  width: number;
+  currentValue: string;
+}>();
+
+const emits = defineEmits(['onToggle', 'onSelect']);
+
+</script>
+
+<style scoped lang="scss">
 .search-input {
   border-radius: 16px;
   background: #f2f3f5;
@@ -75,3 +136,4 @@
 .fade-leave-to {
   opacity: 0;
 }
+</style>
