@@ -1,54 +1,105 @@
 <template>
-  <!-- Контейнер для поля поиска и иконки -->
-  <div class="search-container">
-    <div class="icon-wrapper">
-      <IconComponent
-        :сonfig="{
-          name: 'search',
-          color: '#23362D4D',
-          width: 24,
-          height: 24,
-        }"
-      ></IconComponent>
-    </div>
-    <!-- Поле ввода -->
-    <input
-      type="text"
-      :value="searchValue"
-      @input="updateSearch"
-      :placeholder="props.placeholder"
-      class="search-input"
+  <div class="pagination">
+    <button
+      :disabled="currentPage === 1"
+      @click="changePage(currentPage - 1)"
+    >
+      Previous
+    </button>
+
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+
+    <button
+      :disabled="currentPage === totalPages"
+      @click="changePage(currentPage + 1)"
+    >
+      Next
+    </button>
+  </div>
+</template>
+
+<script setup>
+import { ref, defineProps, defineEmits } from "vue";
+
+const props = defineProps({
+  totalPages: Number,
+  initialPage: {
+    type: Number,
+    default: 1,
+  },
+});
+
+const currentPage = ref(props.initialPage);
+
+const emits = defineEmits(["page-change"]);
+
+const changePage = (newPage) => {
+  if (newPage >= 1 && newPage <= props.totalPages) {
+    currentPage.value = newPage;
+    emits("page-change", newPage);
+  }
+};
+</script>
+
+<style scoped>
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<template>
+  <div>
+    <!-- Ваша таблица данных здесь -->
+
+    <Pagination
+      :total-pages="totalPages"
+      :initial-page="1"
+      @page-change="handlePageChange"
     />
   </div>
 </template>
 
-<style scoped>
-.search-container {
-  /* Расположение иконки и поля ввода в одной строке */
-  display: flex;
-  align-items: center;
-  position: relative;
-}
+<script setup>
+import { ref } from "vue";
+import Pagination from "./Pagination.vue"; // Путь к вашему компоненту пагинации
 
-.icon-wrapper {
-  /* Позиционирование иконки внутри поля ввода */
-  position: absolute;
-  left: 16px; /* Расстояние от левого края поля ввода */
-  z-index: 1; /* Поверх поля ввода */
-}
+const totalPages = ref(10); // Замените на ваше реальное количество страниц
 
-.search-input {
-  /* Стили для поля ввода */
-  border-radius: 16px;
-  background: #f2f3f5;
-  padding: 12px 16px;
-  padding-left: 40px; /* Добавляем отступ слева, чтобы текст не перекрывал иконку */
-  font-size: 14px;
-  border: none;
-  outline: transparent;
-  color: hsl(152, 21%, 17%);
-  width: 100%;
-  position: relative;
-  z-index: 0; /* Под иконкой */
-}
-</style>
+const handlePageChange = (newPage) => {
+  // Здесь ваш код для обновления текущей страницы данных
+};
+</script>
