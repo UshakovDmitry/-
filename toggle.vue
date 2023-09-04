@@ -1,78 +1,137 @@
 <template>
-  <section>
-    <div class="input-wrap">
-      <input id="input-7" type="checkbox" checked />
-      <label for="input-7">Select</label>
-    </div>
-  </section>
+  <div class="table-wrapper">
+    <table class="table-component" v-if="props.rows.length >= 1">
+      <thead>
+        <tr class="table-thead-tr">
+          <th
+            class="table-staff-thead-tr-th"
+            v-for="(header, index) in props.headers"
+          >
+     {{ header  }}
+     
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr 
+        class="table-staff-tbody-tr" 
+        v-for="(row, rowIndex) in props.rows" 
+        :key="rowIndex">
+
+          <td 
+          v-for="(cell, cellIndex, i) in row"
+           :key="cellIndex"
+            class="table-staff-tbody-tr-td"
+          >
+        <cell-type-toggle
+        v-if="props.config.rows[i].config.type === 2"
+        :config="{...props.config.rows[i].config,value: cell ,id: i}"
+        ></cell-type-toggle>
+        <cell-type-simple
+        v-if="props.config.rows[i].config.type === 1"
+        :config="{...props.config.rows[i].config,value: cell ,id: i}"
+        ></cell-type-simple>
+        </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <script setup lang="ts">
-defineProps<{
-  size: number;
-  stroke?: string;
+import cellTypeToggle from '../global/cell-collection/cellTypeToggle.vue';
+import cellTypeSimple from '../global/cell-collection/cellTypeSimple.vue';
+
+const props = defineProps<{
+  headers: string[];
+  rows: any[];
+  config: any;
 }>();
+
+
+const emit = defineEmits([
+  'addExperience',
+  'isModalAddStaffActive',
+  'isModalEditStaffActive',
+  'editKPI',
+  'deleteExperience',
+  'setDataForStaffModalEdit',
+]);
 </script>
 
-<style scoped lang="scss">
-section {
-  flex: 1;
-  padding: 15px 0;
-  text-align: center;
-  background-color: darken(#eee, 1.5);
+<style scoped>
+::-webkit-scrollbar {
+  width: 10px; /* ширина для вертикального скролла */
+  height: 10px; /* высота для горизонтального скролла */
+  background-color: white;
+  border-radius: 16px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #c4c9c6;
+  border-radius: 16px;
+}
+.table-wrapper {
+  position: sticky;
+  top: 0;
+  white-space: nowrap;
+  position: relative;
+  overflow-y: auto;
+  width: 100%;
+  height: auto;
 }
 
-.input-wrap {
-  position: relative;
-  padding: 8px;
-  min-width: 140px;
+.table-component {
+  border-collapse: collapse;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+}
+thead {
+  position: sticky;
+  top: 0;
+}
+.table-thead-tr {
+  position: sticky;
+  top: 0;
+  padding-right: 20px;
+  height: 46px;
+  border-bottom: 1px solid #e4e7e5;
+  background-color: #F1F7F4 ;
 }
 
-label {
-  display: inline-block;
-  position: relative;
-  height: 44px;
-  width: 90px;
-  background-color: #fff;
+
+.alser-table-header {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  width: 100%;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: #23362d;
+}
+
+
+
+.sort-icon {
   cursor: pointer;
-  font-size: 0;
-  color: transparent;
-  border-radius: 22px;
-  line-height: 44px;
-  vertical-align: middle;
-  transition: background-color 500ms ease;
-
-  &:after {
-    content: '';
-    display: block;
-    height: 40px;
-    width: 40px;
-    position: absolute;
-    top: 2px;
-    right: 48px;
-    border-radius: 50%;
-    background-color: #e8e8e8;
-    box-shadow: 2px 0px 0px rgba(0, 0, 0, 0.15);
-    transition: right 500ms ease, background-color 500ms ease, box-shadow 500ms ease;
-  }
+  margin: 5px;
 }
 
-input {
-  position: absolute !important;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  bottom: 0;
+.table-staff-thead-tr-th {
+    padding: 10px 20px;
+    text-align: left;
+
+}
+.table-staff-tbody-tr-td {
+    padding: 10px 20px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #23362d;
+    border-bottom: 1px solid #e4e7e5;
+    text-align: left;
 }
 
-input:checked + label {
-  background: #2F975C;
-
-  &:after {
-    right: 2px;
-    background-color: #fff;
-    box-shadow: -2px 0px 0px rgba(0, 0, 0, 0.1);
-  }
-}
 </style>
+
