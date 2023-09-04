@@ -1,84 +1,53 @@
 <template>
-  <div class="dropdown">
-    <!-- Шапка выпадающего списка -->
-    <div class="dropdown__header">
-      <div class="dropdown__btn" @click="toggle">
-        <p>
-          <!-- Отображаем выбранный город или фразу "Выберите город", если город не выбран -->
-          {{ currentValue.length ? currentValue : 'Выберите город' }}
-        </p>
-        <div>
-          <IconComponent
-            :сonfig="{
-              name: 'arrow_forward',
-              color: 'var(--black)',
-              scale: 1
-            }"
-          ></IconComponent>
-        </div>
-      </div>
-    </div>
-    <!-- Анимация при открытии/закрытии -->
-    <transition name="fade">
-      <!-- Отображаем список городов, если переменная isOpened истинна -->
-      <div v-if="isOpened" class="dropdown__body" :style="{ width: width + 'px' }">
-        <ul class="dropdown__list">
-          <!-- Проходим по каждому городу в списке и отображаем его -->
-          <li
-            v-for="item in items"
-            :key="item"
-            class="dropdown__item"
-            @click="selectItem(item)"
-          >
-            <div class="dropdown-item__name">
-              {{ item }}
-            </div>
-          </li>
-        </ul>
-      </div>
-    </transition>
+  <!-- Контейнер для поля поиска -->
+  <div class="search-container">
+    <!-- Поле ввода -->
+    <input
+      type="text"
+      :value="searchValue"
+      @input="updateSearch"
+      placeholder="Введите запрос..."
+      class="search-input"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import IconComponent from '../../../components/global/icon/icon.component.vue';
-
-// Определяем пропсы
-const props = defineProps<{
-  items: string[];
-  width: number;
-}>();
 
 // Определяем эмиттеры для событий
-const emits = defineEmits(['onToggle', 'onSelect']);
+const emits = defineEmits(['onSearch']);
 
-// Состояние для открытия/закрытия выпадающего списка
-const isOpened = ref(false);
+// Состояние для хранения значения поля поиска
+const searchValue = ref('');
 
-// Текущий выбранный город
-const currentValue = ref('');
-
-// Функция для открытия/закрытия списка
-const toggle = () => {
-  isOpened.value = !isOpened.value;
-  emits('onToggle');
-};
-
-// Функция для выбора города
-const selectItem = (item: string) => {
-  // Задаем текущий выбранный город
-  currentValue.value = item;
+// Функция для обновления значения поиска
+const updateSearch = (event: Event) => {
+  // Получаем текущее значение из поля ввода
+  const value = (event.target as HTMLInputElement).value;
   
-  // Закрываем выпадающий список
-  isOpened.value = false;
+  // Обновляем локальное состояние
+  searchValue.value = value;
   
-  // Эмитим событие с выбранным элементом
-  emits('onSelect', item);
+  // Эмитим событие с новым значением для родительского компонента
+  emits('onSearch', value);
 };
 </script>
 
 <style scoped>
-  /* Ваши CSS стили */
-</style>
+  .search-container {
+    /* Стили для контейнера */
+  }
 
+  .search-input {
+    /* Стили для поля ввода */
+    border-radius: 16px;
+    background: #f2f3f5;
+    padding: 12px 16px;
+    font-size: 14px;
+    border: none;
+    outline: transparent;
+    color: hsl(152, 21%, 17%);
+    width: 100%;
+  }
+</style>
