@@ -1,42 +1,18 @@
-export class TransportComponentViewModel {
-  model: TransportComponentModel;
-  constructor(model: TransportComponentModel) {
-    this.model = model;
-    this.readFromQueue();  // Вызов функции при инициализации ViewModel
-  }
-
-  readFromQueue(): void {
-    const username = "your_username";
-    const password = "your_password";
-    
-    fetch('http://rabbitmq.next.local/api/queues/%2F/TmsQueue/get', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Basic ${btoa(`${username}:${password}`)}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        "count": 1,
-        "ackmode": "ack_requeue_true",
-        "encoding": "auto",
-        "truncate": 50000
-      })
-    })
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw new Error('Failed to fetch');
-      }
-    })
-    .then(data => {
-      console.log(data);
-    })
-    .catch(error => {
-      console.error(error);
-    });
-  }
-
-  // ... ваш остальной код
-}
-
+transport.viewmodel.ts:29 
+ POST http://rabbitmq.next.local/api/queues/%2F/TmsQueue/get net::ERR_ABORTED 401 (Unauthorized)
+readFromQueue	@	transport.viewmodel.ts:29
+TransportComponentViewModel	@	transport.viewmodel.ts:8
+setup	@	transport.component.vue:53
+Promise.then (async)		
+(anonymous)	@	main.ts:13
+Show 59 more frames
+transport.viewmodel.ts:55 Error: Failed to fetch
+    at transport.viewmodel.ts:48:17
+(anonymous)	@	transport.viewmodel.ts:55
+Promise.catch (async)		
+readFromQueue	@	transport.viewmodel.ts:54
+TransportComponentViewModel	@	transport.viewmodel.ts:8
+setup	@	transport.component.vue:53
+Promise.then (async)		
+(anonymous)	@	main.ts:13
+Show 59 more frames
