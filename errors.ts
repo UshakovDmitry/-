@@ -1,11 +1,38 @@
+import { Client } from '@stomp/stompjs';
 import { type TransportComponentModel } from './transport.model';
 
 export class TransportComponentViewModel {
   model: TransportComponentModel;
+  client: Client;  // Добавьте эту строку
 
   constructor(model: TransportComponentModel) {
     this.model = model;
+    this.initializeStompClient();  // Добавьте эту строку
     this.readFromQueue();
+  }
+
+  initializeStompClient(): void {  // Добавьте этот метод
+    this.client = new Client({
+      brokerURL: 'ws://rabbitmq.next.local:15674/ws',
+      connectHeaders: {
+        login: 'tms',
+        passcode: '26000567855499290979',
+      },
+    });
+
+    this.client.onConnect = (frame) => {
+      console.log('Connected:', frame);
+      this.client.subscribe('/queue/TmsQueue', (message) => {
+        console.log('Received:', message.body);
+      });
+    };
+
+    this.client.onStompError = (frame) => {
+      console.error('Broker reported error:', frame.headers['message']);
+      console.error('Additional details:', frame.body);
+    };
+
+    this.client.activate();
   }
 
   setLoaders(): void {
@@ -23,36 +50,6 @@ export class TransportComponentViewModel {
   }
 
   readFromQueue(): void {
-    const username = 'tms';
-    const password = '26000567855499290979';
-
-    fetch('http://rabbitmq.next.local/api/queues/%2F/TmsQueue/get', {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: {
-        Authorization: `Basic ${btoa(`${username}:${password}`)}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        count: 1,
-        ackmode: 'ack_requeue_true',
-        encoding: 'auto',
-        truncate: 50000,
-      }),
-    })
-      .then(async (response) => {
-        if (response.ok) {
-          console.log(response.json());
-          return await response.json();
-        } else {
-          throw new Error('Возникла ошибка при получении данных');
-        }
-      })
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    // Этот метод теперь пуст, так как все делается в initializeStompClient()
   }
 }
