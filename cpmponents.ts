@@ -1,49 +1,66 @@
-template spec
-should display a list of citiespassed
-should display textpassed
-should download filepassed
-should toggle dropdown list when clickedpassed
-should display list of cities when dropdown is openpassed
-should update the current value when a city is selectedfailed
-BEFORE EACH
-1
-visit/transport
-TEST BODY
-1
-get[data-test="dropdown-btn"]
-2
-click
-3
-get.dropdown__item
-5
-4
-first
-5
-click
-(uncaught exception)TypeError: $setup.viewModel.selectCity is not a function
-TypeError
-The following error originated from your application code, not from Cypress.
+describe('template spec', () => {
+  // TRANSPORT
+  beforeEach(() => {
+    cy.visit('/transport');
+  });
+  it('should display a list of cities', () => {
+    // Выбор города
+    cy.get('[data-test="dropdown-body"]').should('not.exist');
+    cy.get('[data-test="dropdown-btn"]').click();
+    cy.get('[data-test="dropdown-body"]').should('be.visible');
+  });
+// Поиск по номеру ППО
+  it('should display text', () => {
+    const numberPPO = 12345567;
+    cy.get('[data-test="search-input-PPO"]').should('be.visible');
+    cy.get('[data-test="search-input-PPO"]')
+      .should('be.visible')
+      .type(`${numberPPO}{enter}`);
+  });
+  // Календарь
+  // it('should display a calendar', () => {
+  //   cy.get('[data-test="calendar-btn"]').click();
+  //   cy.get('[data-test="calendar-body"]').should('be.visible');
+  // });
 
+  // Скачать файл
+  it('should download file', () => {
+    cy.get('[data-test="download-btn"]').click({force: true});   
+  });
+  it('should toggle dropdown list when clicked', () => {
+    // Убедимся, что список не отображается
+    cy.get('[data-test="dropdown-body"]').should('not.exist');
+    
+    // Кликнем по кнопке, чтобы открыть список
+    cy.get('[data-test="dropdown-btn"]').click();
+    
+    // Теперь список должен быть видим
+    cy.get('[data-test="dropdown-body"]').should('be.visible');
+    
+    // Кликнем ещё раз, чтобы закрыть список
+    cy.get('[data-test="dropdown-btn"]').click();
+    
+    // Теперь список должен быть скрыт
+    cy.get('[data-test="dropdown-body"]').should('not.exist');
+  });
 
+  it('should display list of cities when dropdown is open', () => {
+    // Откроем выпадающий список
+    cy.get('[data-test="dropdown-btn"]').click();
+    
+    // Проверим наличие элементов списка в открытом dropdown
+    cy.get('.dropdown__item').should('have.length.greaterThan', 0);
+  });
 
-  > $setup.viewModel.selectCity is not a function
+  it('should update the current value when a city is selected', () => {
+    // Откроем выпадающий список
+    cy.get('[data-test="dropdown-btn"]').click();
+    
+    // Выберем первый город из списка
+    cy.get('.dropdown__item').first().click();
+    
+    // Проверим, что текущее значение обновлено
+    cy.get('[data-test="dropdown-btn"]').contains('Астана'); // Замените регулярное выражение на ожидаемое значение, если оно известно
+  });
+});
 
-
-
-When Cypress detects uncaught errors originating from your application it will automatically fail the current test.
-
-
-
-This behavior is configurable, and you can choose to turn this off by listening to the uncaught:exception event.Learn more
-View stack trace
- Print to console
-at _createVNode.onSelectCity._cache.<computed>._cache.<computed> (http://127.0.0.1:5173/src/views/transport/transport.component.vue:51:78)
-at callWithErrorHandling (http://127.0.0.1:5173/node_modules/.vite/deps/chunk-J6475X5X.js?v=9d92fb66:1565:18)
-at callWithAsyncErrorHandling (http://127.0.0.1:5173/node_modules/.vite/deps/chunk-J6475X5X.js?v=9d92fb66:1573:17)
-at emit (http://127.0.0.1:5173/node_modules/.vite/deps/chunk-J6475X5X.js?v=9d92fb66:2074:5)
-at Proxy.<anonymous> (http://127.0.0.1:5173/node_modules/.vite/deps/chunk-J6475X5X.js?v=9d92fb66:8817:45)
-at _createVNode.onOnSelect._cache.<computed>._cache.<computed> (http://127.0.0.1:5173/src/views/transport/components/filters-panel/filters-panel.component.vue?t=1693988781450:41:66)
-at callWithErrorHandling (http://127.0.0.1:5173/node_modules/.vite/deps/chunk-J6475X5X.js?v=9d92fb66:1565:18)
-at callWithAsyncErrorHandling (http://127.0.0.1:5173/node_modules/.vite/deps/chunk-J6475X5X.js?v=9d92fb66:1573:17)
-at emit (http://127.0.0.1:5173/node_modules/.vite/deps/chunk-J6475X5X.js?v=9d92fb66:2074:5)
-at <unknown> (http://127.0.0.1:5173/node_modules/.vite/deps/chunk-J6475X5X.js?v=9d92fb66:8817:45)
