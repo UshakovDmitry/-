@@ -1,86 +1,74 @@
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-  background-color: white;
-  border-radius: 16px;
-}
-::-webkit-scrollbar-thumb {
-  background-color: #c4c9c6;
-  border-radius: 16px;
-}
+<template>
+  <div class="input-wrap">
+    <input :id="props.id" type="checkbox" checked />
+    <label :for="props.id">Select</label>
+  </div>
+</template>
 
-.table-wrapper {
-  white-space: nowrap;
+<script setup lang="ts">
+const props = defineProps<{
+  id: number;
+}>();
+</script>
+
+<style scoped lang="scss">
+.input-wrap {
   position: relative;
-  border-radius: 16px;  /* Добавлено */
-  width: 100%;
-  height: auto;
-}
-
-.table-component {
-  border-collapse: collapse;
-  background-color: white;
-  border: 1px solid var(--tertiary-light-mode-border, rgba(35, 54, 45, 0.12));
-  background: #fff;
-  width: 100%;
-  height: 100%;
-  border-radius: 16px;  /* Добавлено */
-  overflow: hidden;  /* Добавлено */
-}
-
-thead {
-  position: sticky;
-  top: 0;
-}
-
-.table-thead-tr {
-  padding-right: 20px;
-  border-bottom: 1px solid #e4e7e5;
-  background-color: #f1f7f4;
-  border-radius: 16px;  /* Добавлено */
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
-  height: 80px;
-}
-
-.table-thead-tr th:first-child {
-  border-top-left-radius: 16px;  /* Добавлено */
-}
-.table-thead-tr th:last-child {
-  border-top-right-radius: 16px;  /* Добавлено */
-}
-
-.table-tbody-tr {
-  height: 80px;
-}
-
-.table-tbody-tr td:first-child {
-  border-top-left-radius: 16px;  /* Добавлено */
-}
-.table-tbody-tr td:last-child {
-  border-top-right-radius: 16px;  /* Добавлено */
-}
-.table-tbody-tr:last-child td:first-child {
-  border-bottom-left-radius: 16px;  /* Добавлено */
-}
-.table-tbody-tr:last-child td:last-child {
-  border-bottom-right-radius: 16px;  /* Добавлено */
-}
-
-.table-tbody-tr-td {
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-  color: #23362d;
-  border-bottom: 1px solid #e4e7e5;
-  text-align: left;
-}
-
-.paginator__wrapper {
+  padding: 8px;
+  min-width: 140px;
   display: flex;
-  justify-content: center;
   align-items: center;
-  margin-top: 20px;
-  width: 100%;
-  height: 100%;
+  justify-content: center;
 }
 
+label {
+  display: inline-block;
+  position: relative;
+  height: 24px;
+  width: 45px;
+  background-color: #bdc3c0;
+  cursor: pointer;
+  font-size: 0;
+  color: transparent;
+  border-radius: 22px;
+  line-height: 44px;
+  vertical-align: middle;
+  transition: background-color 500ms ease;
+
+  &:after {
+    content: '';
+    display: block;
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    top: 2px;
+    right: 24px;
+    border-radius: 50%;
+    background-color: #fff;
+    box-shadow: 2px 0px 0px rgba(0, 0, 0, 0.15);
+    transition:
+      right 500ms ease,
+      background-color 500ms ease,
+      box-shadow 500ms ease;
+  }
+}
+
+input {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  bottom: 0;
+}
+
+input:checked + label {
+  background: #2f975c;
+
+  &:after {
+    right: 2px;
+    background-color: #fff;
+    box-shadow: -2px 0px 0px rgba(0, 0, 0, 0.1);
+  }
+}
+</style>
