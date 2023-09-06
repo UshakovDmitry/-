@@ -2,38 +2,7 @@
   <section class="auth">
     <div class="auth__content">
       <img :src="logo" alt="logo" />
-      <!-- <emailField
-        :config="{
-          input: {
-            type: 'email',
-            placeholder: 'Введите email',
-            value: '',
-            isError: false,
-            isDisabled: false,
-            required: true,
-          },
-          helper: {
-            value: 'Пожалуйста, введите email',
-            isActive: false,
-          },
-        }"
-      ></emailField> -->
-      <!-- <passwordField
-        :config="{
-          input: {
-            type: 'password',
-            placeholder: 'Введите пароль',
-            value: '',
-            isError: false,
-            isDisabled: false,
-            required: true,
-          },
-          helper: {
-            value: 'Пожалуйста, введите пароль',
-            isActive: false,
-          },
-        }">
-        </passwordField> -->
+     
       <ButtonComponent
         :config="{
           value: 'Войти',
@@ -43,12 +12,7 @@
           loading: false,
           disabled: false,
           width: '100%',
-          // hideText: false,
-          // mobileWidth: false,
-          // prefix: '',
-          // suffix: '',
-          // iconColor: '',
-          // border: '',
+
         }"
         @input="console.log('click')"
       ></ButtonComponent>
@@ -58,8 +22,6 @@
 <script setup lang="ts">
 import logo from '../../public/icons/logo.svg';
 import ButtonComponent from '../../components/global/button/button.vue';
-// import emailField from '../../components/global/fields/email-field/email-field.vue';
-// import passwordField from '../../components/global/fields/password-field/password-field.vue';
 
 
 </script>
