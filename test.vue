@@ -1,79 +1,98 @@
 <template>
-  <div class="input-wrap" @click="toggleState">
-    <input :id="props.id" type="checkbox" :checked="isActive" />
-    <label :for="props.id" :class="{ active: isActive }">Select</label>
+  <div class="navbar">
+    <router-link to="/dashboard">
+      <IconComponent
+        :сonfig="{
+          name: 'dashboardIcon',
+          color: isActive('/dashboard') ? '#01A254' : '#23362D4D',
+          width: 24,
+          height: 24,
+        }"
+      >
+      </IconComponent>
+    </router-link>
+
+    <router-link to="/map">
+      <IconComponent
+        :сonfig="{
+          name: 'mapIcon',
+          color: isActive('/map') ? '#01A254' : '#23362D4D',
+          width: 24,
+          height: 24,
+        }"
+      >
+      </IconComponent>
+    </router-link>
+
+    <router-link to="/applications">
+      <IconComponent
+        :сonfig="{
+          name: 'assignmentIcon',
+          color: isActive('/applications') ? '#01A254' : '#23362D4D',
+          width: 24,
+          height: 24,
+        }"
+      >
+      </IconComponent>
+    </router-link>
+
+    <router-link to="/delivery">
+      <IconComponent
+        :сonfig="{
+          name: 'peopleIcon',
+          color: isActive('/delivery') ? '#01A254' : '#23362D4D',
+          width: 24,
+          height: 24,
+        }"
+      >
+      </IconComponent>
+    </router-link>
+
+    <router-link to="/transport">
+      <IconComponent
+        :сonfig="{
+          name: 'carIcon',
+          color: isActive('/transport') ? '#01A254' : '#23362D4D',
+          width: 24,
+          height: 24,
+        }"
+      >
+      </IconComponent>
+    </router-link>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import IconComponent from '../components/global/icon/icon.component.vue';
+// import { computed } from 'vue';
+import { useRoute } from 'vue-router';
 
-const props = defineProps<{
-  id: number;
-}>();
-
-const isActive = ref(true); // начальное состояние
-
-function toggleState() {
-  isActive.value = !isActive.value; // изменение состояния
-}
+const route = useRoute();
+const isActive = (path: string): boolean => {
+  return route.path === path;
+};
 </script>
 
-<style scoped>
-.input-wrap {
-  position: relative;
-  padding: 8px;
-  min-width: 140px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-label {
-  display: inline-block;
-  position: relative;
-  height: 24px;
-  width: 45px;
-  background-color: #bdc3c0;
-  cursor: pointer;
-  font-size: 0;
-  color: transparent;
-  border-radius: 22px;
-  line-height: 44px;
-  vertical-align: middle;
-  transition: background-color 500ms ease;
-}
-
-label::after {
-  content: '';
-  display: block;
-  height: 20px;
-  width: 20px;
-  position: absolute;
-  top: 2px;
-  right: 24px;
-  border-radius: 50%;
+<style>
+.navbar {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  border: 1px solid rgba(35, 54, 45, 0.12);
   background-color: #fff;
-  box-shadow: 2px 0px 0px rgba(0, 0, 0, 0.15);
-  transition: right 500ms ease, background-color 500ms ease, box-shadow 500ms ease;
-}
-
-label.active {
-  background: #2f975c;
-}
-
-label.active::after {
-  right: 2px;
-  background-color: #fff;
-  box-shadow: -2px 0px 0px rgba(0, 0, 0, 0.1);
-}
-
-input {
-  position: absolute !important;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
   bottom: 0;
+  width: 72px;
+  color: white;
+  padding: 70px 24px 24px 24px;
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  align-self: stretch;
 }
+
+/* .router-link-active {
+  background-color: #666;
+} */
 </style>
