@@ -98,3 +98,78 @@ const IconContainer: Component = () => {
   );
 };
 </script>
+
+
+
+
+
+
+
+//// with rotate
+
+
+<template>
+  <IconContainer></IconContainer>
+</template>
+
+<script setup lang="ts">
+import { h, Component } from 'vue';
+// ... (ваши импорты)
+
+export interface IIcon {
+  name: string;
+  color: string;
+  colorLoading?: string;
+  width?: number;
+  height?: number;
+  scale?: number;
+  isDisabled?: boolean;
+  isLoading?: boolean;
+  viewBox?: string | undefined;
+  rotate?: number; // Добавьте эту строку
+}
+
+const props = defineProps<{
+  сonfig: IIcon;
+}>();
+
+const emits = defineEmits(['onClick']);
+
+// ... (список иконок)
+
+const IconContainer: Component = () => {
+  return h(
+    'svg',
+    {
+      xmlns: 'http://www.w3.org/2000/svg',
+      role: 'presentation',
+      width: props.сonfig?.width || 18,
+      height: props.сonfig?.height || 18,
+      viewBox: props.сonfig?.viewBox || '0 0 24 24',
+      style: `
+        transform: scale(${props.сonfig?.scale}) rotate(${props.сonfig?.rotate || 0}deg);
+      `, // Добавьте rotate здесь
+      onClick: () => {
+        emits('onClick');
+      },
+    },
+    [
+      h('title', { lang: 'en' }),
+      h(
+        'g',
+        {
+          fill: props.сonfig?.isDisabled
+            ? `var(--dark-30)`
+            : props.сonfig?.isLoading
+            ? props.сonfig?.colorLoading
+              ? `var(--${props.сonfig?.colorLoading})`
+              : 'transparent'
+            : props.сonfig?.color,
+        },
+        h(listIcons[props.сonfig.name]),
+      ),
+    ],
+  );
+};
+</script>
+
