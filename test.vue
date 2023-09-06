@@ -1,22 +1,32 @@
 <template>
-  <div>
-    <HeaderComponent v-if="!isAuthPage" />
-    <div class="main-layout">
-      <NavbarComponent v-if="!isAuthPage" />
-      <div class="content">
-        <router-view></router-view>
-      </div>
-    </div>
+  <div :class="{ 'auth-route': isAuthRoute }">
+    <router-view />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import HeaderComponent from '../components/HeaderComponent.vue';
-import NavbarComponent from '../components/NavbarComponent.vue';
 
 const route = useRoute();
-const isAuthPage = ref(route.path === '/auth');
+const isAuthRoute = ref(route.path === '/auth');
+
+watch(route, () => {
+  isAuthRoute.value = route.path === '/auth';
+});
 </script>
 
+<style>
+#app {
+  padding-left: 70px;
+  padding-top: 107px;
+  width: calc(100% - 107px);
+  /* другие стили */
+}
+
+#app.auth-route {
+  padding-left: 0;
+  padding-top: 0;
+  width: 100%;
+}
+</style>
