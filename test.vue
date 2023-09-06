@@ -11,7 +11,7 @@ const props = defineProps<{
 }>();
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .input-wrap {
   position: relative;
   padding: 8px;
@@ -34,23 +34,20 @@ label {
   line-height: 44px;
   vertical-align: middle;
   transition: background-color 500ms ease;
+}
 
-  &:after {
-    content: '';
-    display: block;
-    height: 20px;
-    width: 20px;
-    position: absolute;
-    top: 2px;
-    right: 24px;
-    border-radius: 50%;
-    background-color: #fff;
-    box-shadow: 2px 0px 0px rgba(0, 0, 0, 0.15);
-    transition:
-      right 500ms ease,
-      background-color 500ms ease,
-      box-shadow 500ms ease;
-  }
+label::after {
+  content: '';
+  display: block;
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  top: 2px;
+  right: 24px;
+  border-radius: 50%;
+  background-color: #fff;
+  box-shadow: 2px 0px 0px rgba(0, 0, 0, 0.15);
+  transition: right 500ms ease, background-color 500ms ease, box-shadow 500ms ease;
 }
 
 input {
@@ -64,11 +61,11 @@ input {
 
 input:checked + label {
   background: #2f975c;
+}
 
-  &:after {
-    right: 2px;
-    background-color: #fff;
-    box-shadow: -2px 0px 0px rgba(0, 0, 0, 0.1);
-  }
+input:checked + label::after {
+  right: 2px;
+  background-color: #fff;
+  box-shadow: -2px 0px 0px rgba(0, 0, 0, 0.1);
 }
 </style>
