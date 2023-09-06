@@ -1,44 +1,35 @@
-describe('Toggle Buttons E2E tests', () => {
-  beforeEach(() => {
-    cy.visit('/your-page-url'); // Замените на URL страницы, где размещён ваш переключатель
-  });
-
-  it('should activate the Transport button when clicked', () => {
-    cy.get('[data-test="transport-btn"]').click().should('have.class', 'isActiveTab');
-    cy.get('[data-test="loaders-btn"]').should('not.have.class', 'isActiveTab');
-  });
-
-  it('should activate the Loaders button when clicked', () => {
-    cy.get('[data-test="loaders-btn"]').click().should('have.class', 'isActiveTab');
-    cy.get('[data-test="transport-btn"]').should('not.have.class', 'isActiveTab');
-  });
-
-  it('should toggle between Transport and Loaders when clicked', () => {
-    cy.get('[data-test="transport-btn"]').click().should('have.class', 'isActiveTab');
-    cy.get('[data-test="loaders-btn"]').click().should('have.class', 'isActiveTab');
-    cy.get('[data-test="transport-btn"]').should('not.have.class', 'isActiveTab');
-  });
-});
-
-
-
-
-<div class="wrapper-toggle-btns">
-  <div
-    class="wrapper-toggle-btns-item"
-    data-test="transport-btn"
-    :class="{ isActiveTab: model.isTransport === true }"
-    @click="viewModel.setTransport()"
-  >
-    Транспорт
-  </div>
-  <div
-    class="wrapper-toggle-btns-item"
-    data-test="loaders-btn"
-    :class="{ isActiveTab: model.isLoaders === true }"
-    @click="viewModel.setLoaders()"
-  >
-    Грузчики
-  </div>
-</div>
-
+ this.transport = [
+      {
+        model: 'Mercedes-Benz',
+        number: 'A 123 AA 77',
+        type: 'Газель',
+        volume: '4.5',
+        loadCapacity: '1.5',
+        city: 'Москва',
+        isActive: true,
+        schedule: 'Пн-Пт 9:00-18:00',
+        hasDriver: true,
+      },
+      {
+        model: 'Ford Transit',
+        number: 'B 234 BB 88',
+        type: 'Грузовик',
+        volume: '6.0',
+        loadCapacity: '2.5',
+        city: 'Санкт-Петербург',
+        isActive: false,
+        schedule: 'Пн-Пт 8:00-20:00',
+        hasDriver: false,
+      },
+      {
+        model: 'Volkswagen Crafter',
+        number: 'C 345 CC 99',
+        type: 'Минивэн',
+        volume: '5.0',
+        loadCapacity: '1.2',
+        city: 'Новосибирск',
+        isActive: true,
+        schedule: 'Сб-Вс 10:00-16:00',
+        hasDriver: true,
+      },
+      ]
