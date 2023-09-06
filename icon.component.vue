@@ -176,6 +176,26 @@ const IconContainer: Component = () => {
 
 
 
+const IconContainer: Component = () => {
+  return h(
+    'svg',
+    {
+      xmlns: 'http://www.w3.org/2000/svg',
+      role: 'presentation',
+      width: props.сonfig?.width || 18,
+      height: props.сonfig?.height || 18,
+      viewBox: props.сonfig?.viewBox || '0 0 24 24',
+      style: {
+        transform: `scale(${props.сonfig?.scale}) rotate(${props.сonfig?.rotate || 0}deg)`,
+        transformOrigin: 'center'
+      },
+      onClick: () => {
+        emits('onClick');
+      },
+    },
+    // ... остальной код
+  );
+};
 
 
 
