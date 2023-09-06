@@ -1,92 +1,74 @@
-this.transport = [
-      {
-        model: 'ЗАЗ',
-        number: 'A 123 AA 77',
-        type: 'Газель',
-        volume: '4.5',
-        loadCapacity: '1.5',
-        city: 'Караганда',
-        isActive: true,
-        schedule: 'Пн-Пт 9:00-18:00',
-        hasDriver: true,
+import { type TransportComponentModel } from './transport.model';
+
+export class TransportComponentViewModel {
+  model: TransportComponentModel;
+
+  constructor(model: TransportComponentModel) {
+    this.model = model;
+    // this.readFromQueue();
+  }
+
+  selectCity(city: string): void {
+    console.log('city');
+    this.filterTableByCity(city);
+  }
+
+  filterTableByCity(city: string): void {
+    this.model.filteredTransport = this.model.transport.filter(
+      (item) => item.city === city,
+    );
+  }
+
+  setLoaders(): void {
+    console.log('setLoaders');
+
+    this.model.isTransport = false;
+    this.model.isLoaders = true;
+  }
+
+  setTransport(): void {
+    console.log('setTransport');
+
+    this.model.isLoaders = false;
+    this.model.isTransport = true;
+  }
+
+  changePage(page: number): void {
+    console.log(page);
+  }
+
+  readFromQueue(): void {
+    const username: string = 'tms';
+    const password: string = '26000567855499290979';
+
+    fetch('http://rabbitmq.next.local/api/queues/%2F/TmsQueue/get', {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        Authorization: `Basic ${btoa(`${username}:${password}`)}`,
+        'Content-Type': 'application/json',
       },
-      {
-        model: 'УАЗ',
-        number: 'B 234 BB 88',
-        type: 'Грузовик',
-        volume: '6.0',
-        loadCapacity: '2.5',
-        city: 'Алматы',
-        isActive: false,
-        schedule: 'Пн-Пт 8:00-20:00',
-        hasDriver: false,
-      },
-      {
-        model: 'ВАЗ',
-        number: 'C 345 CC 99',
-        type: 'Минивэн',
-        volume: '5.0',
-        loadCapacity: '1.2',
-        city: 'Шымкент',
-        isActive: true,
-        schedule: 'Сб-Вс 10:00-16:00',
-        hasDriver: true,
-      },
-      {
-        model: 'ГАЗ',
-        number: 'D 456 DD 10',
-        type: 'Грузовик',
-        volume: '7.0',
-        loadCapacity: '3.0',
-        city: 'Астана',
-        isActive: false,
-        schedule: 'Пн-Вс 9:00-21:00',
-        hasDriver: false,
-      },
-      // Повторяю паттерн для остальных
-      {
-        model: 'МАЗ',
-        number: 'F 678 FF 12',
-        type: 'Грузовик',
-        volume: '6.5',
-        loadCapacity: '2.8',
-        city: 'Караганда',
-        isActive: true,
-        schedule: 'Пн-Пт 10:00-19:00',
-        hasDriver: false,
-      },
-      {
-        model: 'КАМАЗ',
-        number: 'G 789 GG 13',
-        type: 'Минивэн',
-        volume: '4.8',
-        loadCapacity: '1.8',
-        city: 'Алматы',
-        isActive: false,
-        schedule: 'Сб-Вс 11:00-17:00',
-        hasDriver: true,
-      },
-      {
-        model: 'ЛуАЗ',
-        number: 'H 890 HH 14',
-        type: 'Грузовик',
-        volume: '5.7',
-        loadCapacity: '1.9',
-        city: 'Шымкент',
-        isActive: true,
-        schedule: 'Пн-Пт 12:00-20:00',
-        hasDriver: false,
-      },
-      {
-        model: 'БелАЗ',
-        number: 'I 901 II 15',
-        type: 'Минивэн',
-        volume: '5.2',
-        loadCapacity: '1.7',
-        city: 'Астана',
-        isActive: false,
-        schedule: 'Пн-Пт 13:00-21:00',
-        hasDriver: true,
-      },
-      // ... (и так далее)
-];
+      body: JSON.stringify({
+        count: 1,
+        ackmode: 'ack_requeue_true',
+        encoding: 'auto',
+        truncate: 50000,
+      }),
+    })
+      .then(async (response) => {
+        if (response.ok) {
+          console.log(response.json());
+          return await response.json();
+        } else {
+          throw new Error('Возникла ошибка при получении данных');
+        }
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+}
+
