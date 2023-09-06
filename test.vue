@@ -1,15 +1,14 @@
-import { type TransportComponentModel } from './transport.model';
+import { TransportComponentModel } from './transport.model'; // Предполагается, что вы импортируете вашу модель
 
 export class TransportComponentViewModel {
   model: TransportComponentModel;
+  isSortedInAscendingOrder: boolean = true; // Новое свойство для отслеживания порядка сортировки
 
   constructor(model: TransportComponentModel) {
     this.model = model;
-    // this.readFromQueue();
   }
 
   selectCity(city: string): void {
-    console.log('city');
     this.filterTableByCity(city);
   }
 
@@ -20,15 +19,11 @@ export class TransportComponentViewModel {
   }
 
   setLoaders(): void {
-    console.log('setLoaders');
-
     this.model.isTransport = false;
     this.model.isLoaders = true;
   }
 
   setTransport(): void {
-    console.log('setTransport');
-
     this.model.isLoaders = false;
     this.model.isTransport = true;
   }
@@ -38,37 +33,34 @@ export class TransportComponentViewModel {
   }
 
   readFromQueue(): void {
-    const username: string = 'tms';
-    const password: string = '26000567855499290979';
+    // ... (Как в вашем примере)
+  }
 
-    fetch('http://rabbitmq.next.local/api/queues/%2F/TmsQueue/get', {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: {
-        Authorization: `Basic ${btoa(`${username}:${password}`)}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        count: 1,
-        ackmode: 'ack_requeue_true',
-        encoding: 'auto',
-        truncate: 50000,
-      }),
-    })
-      .then(async (response) => {
-        if (response.ok) {
-          console.log(response.json());
-          return await response.json();
-        } else {
-          throw new Error('Возникла ошибка при получении данных');
-        }
-      })
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  private getCurrentDayAndTimeInKZ() {
+    const dateInKZ = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Almaty" }));
+    const currentDay = dateInKZ.getDay();
+    const currentTime = dateInKZ.getHours() * 60 + dateInKZ.getMinutes();
+    return { currentDay, currentTime };
+  }
+
+  private isOperatingTodayAndNow(schedule: string, currentDay: number, currentTime: number): boolean {
+    // Здесь будет ваша логика для анализа строки расписания
+    // ...
+
+    return true; // Вернуть true, если работает сегодня и сейчас
+  }
+
+  sortTransportBySchedule(): void {
+    const { currentDay, currentTime } = this.getCurrentDayAndTimeInKZ();
+    
+    this.model.filteredTransport.sort((a, b) => {
+      const aOperating = this.isOperatingTodayAndNow(a.schedule, currentDay, currentTime) ? 1 : 0;
+      const bOperating = this.isOperatingTodayAndNow(b.schedule, currentDay, currentTime) ? 1 : 0;
+
+      return (bOperating - aOperating) * (this.isSortedInAscendingOrder ? 1 : -1);
+    });
+    
+    this.isSortedInAscendingOrder = !this.isSortedInAscendingOrder; // Переключение порядка сортировки
   }
 }
 
