@@ -1,14 +1,22 @@
 <template>
-  <div class="input-wrap">
-    <input :id="props.id" type="checkbox" checked />
-    <label :for="props.id">Select</label>
+  <div class="input-wrap" @click="toggleState">
+    <input :id="props.id" type="checkbox" :checked="isActive" />
+    <label :for="props.id" :class="{ active: isActive }">Select</label>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
+
 const props = defineProps<{
   id: number;
 }>();
+
+const isActive = ref(true); // начальное состояние
+
+function toggleState() {
+  isActive.value = !isActive.value; // изменение состояния
+}
 </script>
 
 <style scoped>
@@ -50,6 +58,16 @@ label::after {
   transition: right 500ms ease, background-color 500ms ease, box-shadow 500ms ease;
 }
 
+label.active {
+  background: #2f975c;
+}
+
+label.active::after {
+  right: 2px;
+  background-color: #fff;
+  box-shadow: -2px 0px 0px rgba(0, 0, 0, 0.1);
+}
+
 input {
   position: absolute !important;
   width: 1px;
@@ -57,15 +75,5 @@ input {
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   bottom: 0;
-}
-
-input:checked + label {
-  background: #2f975c;
-}
-
-input:checked + label::after {
-  right: 2px;
-  background-color: #fff;
-  box-shadow: -2px 0px 0px rgba(0, 0, 0, 0.1);
 }
 </style>
