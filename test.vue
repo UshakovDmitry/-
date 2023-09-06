@@ -1,98 +1,68 @@
-<template>
-  <div class="navbar">
-    <router-link to="/dashboard">
-      <IconComponent
-        :сonfig="{
-          name: 'dashboardIcon',
-          color: isActive('/dashboard') ? '#01A254' : '#23362D4D',
-          width: 24,
-          height: 24,
-        }"
-      >
-      </IconComponent>
-    </router-link>
+import {
+  createRouter,
+  createWebHistory,
+  type RouteRecordRaw,
+} from 'vue-router';
+import Auth from '../views/auth/auth.component.vue';
+import Layout from '../layout/dafault.vue';
+import Dashboard from '../views/dashboard/dashboard.component.vue';
+import Map from '../views/map/map.component.vue';
+import Applications from '../views/applications/applications.component.vue';
+import Transport from '../views/transport/transport.component.vue';
+import Delivery from '../views/delivery/delivery.component.vue';
 
-    <router-link to="/map">
-      <IconComponent
-        :сonfig="{
-          name: 'mapIcon',
-          color: isActive('/map') ? '#01A254' : '#23362D4D',
-          width: 24,
-          height: 24,
-        }"
-      >
-      </IconComponent>
-    </router-link>
+const routes: RouteRecordRaw[] = [
+  {
+    path: '/auth',
+    name: 'Auth',
+    component: Auth,
+    meta: {
+      public: true,
+    },
+  },
+  {
+    path: '/',
+    component: Layout,
+    meta: {},
+    children: [
+      {
+        path: '',
+        redirect: 'dashboard',
+      },
+      {
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: Dashboard,
+      },
+      {
+        path: 'map',
+        name: 'Map',
+        component: Map,
+      },
+      {
+        path: 'applications',
+        name: 'Applications',
+        component: Applications,
+      },
+      {
+        path: 'delivery',
+        name: 'Delivery',
+        component: Delivery,
+      },
+      {
+        path: 'transport',
+        name: 'Transport',
+        component: Transport,
+      },
+    ],
+  },
+];
 
-    <router-link to="/applications">
-      <IconComponent
-        :сonfig="{
-          name: 'assignmentIcon',
-          color: isActive('/applications') ? '#01A254' : '#23362D4D',
-          width: 24,
-          height: 24,
-        }"
-      >
-      </IconComponent>
-    </router-link>
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
+});
 
-    <router-link to="/delivery">
-      <IconComponent
-        :сonfig="{
-          name: 'peopleIcon',
-          color: isActive('/delivery') ? '#01A254' : '#23362D4D',
-          width: 24,
-          height: 24,
-        }"
-      >
-      </IconComponent>
-    </router-link>
 
-    <router-link to="/transport">
-      <IconComponent
-        :сonfig="{
-          name: 'carIcon',
-          color: isActive('/transport') ? '#01A254' : '#23362D4D',
-          width: 24,
-          height: 24,
-        }"
-      >
-      </IconComponent>
-    </router-link>
-  </div>
-</template>
+export default router;
 
-<script setup lang="ts">
-import IconComponent from '../components/global/icon/icon.component.vue';
-// import { computed } from 'vue';
-import { useRoute } from 'vue-router';
-
-const route = useRoute();
-const isActive = (path: string): boolean => {
-  return route.path === path;
-};
-</script>
-
-<style>
-.navbar {
-  position: fixed;
-  top: 70px;
-  left: 0;
-  border: 1px solid rgba(35, 54, 45, 0.12);
-  background-color: #fff;
-  bottom: 0;
-  width: 72px;
-  color: white;
-  padding: 70px 24px 24px 24px;
-  display: flex;
-  box-sizing: border-box;
-  flex-direction: column;
-  align-items: center;
-  gap: 32px;
-  align-self: stretch;
-}
-
-/* .router-link-active {
-  background-color: #666;
-} */
-</style>
