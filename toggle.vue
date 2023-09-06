@@ -1,137 +1,164 @@
 <template>
-  <div class="table-wrapper">
-    <table class="table-component" v-if="props.rows.length >= 1">
-      <thead>
-        <tr class="table-thead-tr">
-          <th
-            class="table-staff-thead-tr-th"
-            v-for="(header, index) in props.headers"
-          >
-     {{ header  }}
-     
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr 
-        class="table-staff-tbody-tr" 
-        v-for="(row, rowIndex) in props.rows" 
-        :key="rowIndex">
+  <div class="pagination">
+    <div class="first-page-btn" @click="goToFirstPage">
+      <IconComponent
+        :сonfig="{
+          name: 'doubleArrowRight',
+          color: '#23362D4D',
+          width: 24,
+          height: 24,
+        }"
+      ></IconComponent>
+    </div>
+    <div class="page-btn" @click="goToPrevPage">
+      <IconComponent
+        :сonfig="{
+          name: 'keyboardLeft',
+          color: '#23362D4D',
+          width: 24,
+          height: 24,
+        }"
+      ></IconComponent>
+    </div>
 
-          <td 
-          v-for="(cell, cellIndex, i) in row"
-           :key="cellIndex"
-            class="table-staff-tbody-tr-td"
-          >
-        <cell-type-toggle
-        v-if="props.config.rows[i].config.type === 2"
-        :config="{...props.config.rows[i].config,value: cell ,id: i}"
-        ></cell-type-toggle>
-        <cell-type-simple
-        v-if="props.config.rows[i].config.type === 1"
-        :config="{...props.config.rows[i].config,value: cell ,id: i}"
-        ></cell-type-simple>
-        </td>
-        </tr>
-      </tbody>
-    </table>
+    <button
+      v-for="page in totalPages"
+      :key="page"
+      class="page-btn"
+      @click="goToPage(page)"
+      :class="{ active: currentPage === page }"
+    >
+      {{ page }}
+    </button>
+
+    <div class="page-btn" @click="goToNextPage">
+      <IconComponent
+        :сonfig="{
+          name: 'keyboardRight',
+          color: '#23362D4D',
+          width: 24,
+          height: 24,
+        }"
+      ></IconComponent>
+    </div>
+    <div class="last-page-btn" @click="goToLastPage">
+      <IconComponent
+        :сonfig="{
+          name: 'doubleArrowRight',
+          color: '#23362D4D',
+          width: 24,
+          height: 24,
+        }"
+      ></IconComponent>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import cellTypeToggle from '../global/cell-collection/cellTypeToggle.vue';
-import cellTypeSimple from '../global/cell-collection/cellTypeSimple.vue';
+import { ref } from 'vue';
+import IconComponent from '../icon/icon.component.vue';
 
 const props = defineProps<{
-  headers: string[];
-  rows: any[];
-  config: any;
+  totalPages: number;
+  initialPage: number;
 }>();
 
+const emit = defineEmits<{
+  (e: 'page-change', value: number): void;
+}>();
 
-const emit = defineEmits([
-  'addExperience',
-  'isModalAddStaffActive',
-  'isModalEditStaffActive',
-  'editKPI',
-  'deleteExperience',
-  'setDataForStaffModalEdit',
-]);
+const currentPage = ref(props.initialPage);
+
+const goToPage = (page: number) => {
+  currentPage.value = page;
+  emit('page-change', page);
+};
+
+const goToPrevPage = () => {
+  if (currentPage.value > 1) {
+    goToPage(currentPage.value - 1);
+  }
+};
+
+const goToNextPage = () => {
+  if (currentPage.value < props.totalPages) {
+    goToPage(currentPage.value + 1);
+  }
+};
+const goToFirstPage = () => {
+  goToPage(1);
+};
+
+const goToLastPage = () => {
+  goToPage(props.totalPages);
+};
 </script>
 
 <style scoped>
-::-webkit-scrollbar {
-  width: 10px; /* ширина для вертикального скролла */
-  height: 10px; /* высота для горизонтального скролла */
-  background-color: white;
-  border-radius: 16px;
-}
-::-webkit-scrollbar-thumb {
-  background-color: #c4c9c6;
-  border-radius: 16px;
-}
-.table-wrapper {
-  position: sticky;
-  top: 0;
-  white-space: nowrap;
-  position: relative;
-  overflow-y: auto;
-  width: 100%;
-  height: auto;
-}
-
-.table-component {
-  border-collapse: collapse;
-  background-color: white;
-  width: 100%;
-  height: 100%;
-}
-thead {
-  position: sticky;
-  top: 0;
-}
-.table-thead-tr {
-  position: sticky;
-  top: 0;
-  padding-right: 20px;
-  height: 46px;
-  border-bottom: 1px solid #e4e7e5;
-  background-color: #F1F7F4 ;
-}
-
-
-.alser-table-header {
+.pagination {
   display: flex;
+  align-items: center;
   justify-content: center;
-  flex-direction: row;
-  width: 100%;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 20px;
-  color: #23362d;
+  gap: 6px;
 }
-
-
-
-.sort-icon {
+.first-page-btn {
+  display: flex;
+  width: 34px;
+  height: 34px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 80px;
+  padding-top: 2px;
+  outline: none;
+  border: none;
+  box-sizing: border-box;
+  rotate:180deg;
+  color: var(--text-dark, #23362d);
   cursor: pointer;
-  margin: 5px;
-}
-
-.table-staff-thead-tr-th {
-    padding: 10px 20px;
-    text-align: left;
+  /* border: 1px solid #813909; */
 
 }
-.table-staff-tbody-tr-td {
-    padding: 10px 20px;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
-    color: #23362d;
-    border-bottom: 1px solid #e4e7e5;
-    text-align: left;
+.last-page-btn {
+  display: flex;
+  width: 34px;
+  height: 34px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 80px;
+  padding-top: 5px;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  color: var(--text-dark, #23362d);
+  cursor: pointer;
+/* border: 1px solid #813909; */
+}
+.page-btn {
+  display: flex;
+  width: 34px;
+  height: 34px;
+  /* padding: 4px; */
+  /* flex-direction: column; */
+  justify-content: center;
+  align-items: center;
+  border-radius: 80px;
+  outline: none;
+  border: none;
+  color: var(--text-dark, #23362d);
+  cursor: pointer;
+  /* border: 1px solid #813909; */
 }
 
+button.active {
+  border-radius: 80px;
+  background: var(--overlay-activated, rgba(0, 161, 83, 0.12));
+  color: var(--primary-light-mode-dark, #006f39);
+  text-align: center;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
 </style>
 
