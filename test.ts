@@ -1,19 +1,23 @@
-  selectCity(city: string): void {
-    this.filterTableByCity(city);
-  }
+import { test } from 'vitest';
+import { TransportComponentViewModel } from './path-to-your-viewModel';
+import { TransportComponentModel } from './path-to-your-model';
 
-  filterTableByCity(city: string): void {
-    this.model.filteredTransport = this.model.transport.filter(
-      (item) => item.city === city,
-    );
-  }
+test('filterTableByCity filters correctly', async () => {
+  const model: TransportComponentModel = {
+    // инициализация вашей модели
+    transport: [
+      { city: 'City1', /* другие поля */ },
+      { city: 'City2', /* другие поля */ },
+    ],
+    filteredTransport: [],
+    isLoaders: false,
+    isTransport: true,
+  };
 
-  setLoaders(): void {
-    this.model.isTransport = false;
-    this.model.isLoaders = true;
-  }
-
-  setTransport(): void {
-    this.model.isLoaders = false;
-    this.model.isTransport = true;
-  }
+  const viewModel = new TransportComponentViewModel(model);
+  viewModel.filterTableByCity('City1');
+  
+  if (!Array.isArray(viewModel.model.filteredTransport)) throw new Error('Not an array');
+  if (viewModel.model.filteredTransport.length !== 1) throw new Error('Filtered incorrectly');
+  if (viewModel.model.filteredTransport[0].city !== 'City1') throw new Error('City mismatch');
+});
