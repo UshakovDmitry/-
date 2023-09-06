@@ -173,3 +173,25 @@ const IconContainer: Component = () => {
 };
 </script>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <IconComponent
+    :сonfig="{
+      name: 'doubleArrowRight',
+      color: '#23362D4D',
+      width: 34,
+      height: 34,
+      rotate: 90,
+    }"
+  ></IconComponent>
