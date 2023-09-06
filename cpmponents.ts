@@ -1,13 +1,17 @@
-PS C:\Users\ushakov.dmitriy\Desktop\Projects\alser.dispatcherworkplaceui> npm run dev
-   
-> alser.dispatcherworkplaceui@0.0.0 dev
-> vite
-
-
-  VITE v4.4.9  ready in 605 ms
-
-  ➜  Local:   http://127.0.0.1:3000/
-  ➜  Network: use --host to expose
-  ➜  press h to show help
-[@vue/compiler-sfc] `defineProps` is a compiler macro and no longer needs to be imported.
+      <!-- Отображаем список городов, если переменная isOpened истинна -->
+      <div v-if="isOpened" data-test="dropdown-body" class="dropdown__body" :style="{ width: width + 'px' }">
+        <ul class="dropdown__list">
+          <!-- Проходим по каждому городу в списке и отображаем его -->
+          <li
+            v-for="item in items"
+            :key="item"
+            class="dropdown__item"
+            @click="selectItem(item)"
+          >
+            <div class="dropdown__item__name">
+              {{ item }}
+            </div>
+          </li>
+        </ul>
+      </div>
 
