@@ -1,164 +1,50 @@
-<template>
-  <div class="pagination">
-    <div class="first-page-btn" @click="goToFirstPage">
-      <IconComponent
-        :сonfig="{
-          name: 'doubleArrowRight',
-          color: '#23362D4D',
-          width: 24,
-          height: 24,
-        }"
-      ></IconComponent>
-    </div>
-    <div class="page-btn" @click="goToPrevPage">
-      <IconComponent
-        :сonfig="{
-          name: 'keyboardLeft',
-          color: '#23362D4D',
-          width: 24,
-          height: 24,
-        }"
-      ></IconComponent>
-    </div>
+describe('Paginator Component', () => {
+  // Указываем, что перед каждым тестом нужно посетить определенный URL
+  beforeEach(() => {
+    cy.visit('/your-page-url'); // Замените на URL, где расположен ваш компонент
+  });
 
-    <button
-      v-for="page in totalPages"
-      :key="page"
-      class="page-btn"
-      @click="goToPage(page)"
-      :class="{ active: currentPage === page }"
-    >
-      {{ page }}
-    </button>
+  it('should have navigation buttons', () => {
+    cy.get('[data-test="first-page-btn"]').should('exist');
+    cy.get('[data-test="prev-page-btn"]').should('exist');
+    cy.get('[data-test="next-page-btn"]').should('exist');
+    cy.get('[data-test="last-page-btn"]').should('exist');
+  });
 
-    <div class="page-btn" @click="goToNextPage">
-      <IconComponent
-        :сonfig="{
-          name: 'keyboardRight',
-          color: '#23362D4D',
-          width: 24,
-          height: 24,
-        }"
-      ></IconComponent>
-    </div>
-    <div class="last-page-btn" @click="goToLastPage">
-      <IconComponent
-        :сonfig="{
-          name: 'doubleArrowRight',
-          color: '#23362D4D',
-          width: 24,
-          height: 24,
-        }"
-      ></IconComponent>
-    </div>
-  </div>
-</template>
+  it('should navigate to the next and previous pages', () => {
+    // Предполагается, что начальная страница - это 1
+    cy.get('[data-test="page-btn"]').contains('2').click();
+    cy.get('[data-test="page-btn"].active').contains('2');
+    cy.get('[data-test="prev-page-btn"]').click();
+    cy.get('[data-test="page-btn"].active').contains('1');
+  });
 
-<script setup lang="ts">
-import { ref } from 'vue';
-import IconComponent from '../icon/icon.component.vue';
+  it('should navigate to the first and last pages', () => {
+    // Переход на последнюю страницу
+    cy.get('[data-test="last-page-btn"]').click();
+    cy.get('[data-test="page-btn"].active').contains('N'); // N - номер последней страницы
+    
+    // Переход на первую страницу
+    cy.get('[data-test="first-page-btn"]').click();
+    cy.get('[data-test="page-btn"].active').contains('1');
+  });
 
-const props = defineProps<{
-  totalPages: number;
-  initialPage: number;
-}>();
+  it('should activate the button corresponding to the current page', () => {
+    cy.get('[data-test="page-btn"]').contains('3').click();
+    cy.get('[data-test="page-btn"].active').contains('3');
+  });
 
-const emit = defineEmits<{
-  (e: 'page-change', value: number): void;
-}>();
+  // Проверки на граничных значениях
+  it('should not go below the first page', () => {
+    cy.get('[data-test="first-page-btn"]').click();
+    cy.get('[data-test="prev-page-btn"]').click(); // Ничего не произойдет
+    cy.get('[data-test="page-btn"].active').contains('1');
+  });
 
-const currentPage = ref(props.initialPage);
-
-const goToPage = (page: number) => {
-  currentPage.value = page;
-  emit('page-change', page);
-};
-
-const goToPrevPage = () => {
-  if (currentPage.value > 1) {
-    goToPage(currentPage.value - 1);
-  }
-};
-
-const goToNextPage = () => {
-  if (currentPage.value < props.totalPages) {
-    goToPage(currentPage.value + 1);
-  }
-};
-const goToFirstPage = () => {
-  goToPage(1);
-};
-
-const goToLastPage = () => {
-  goToPage(props.totalPages);
-};
-</script>
-
-<style scoped>
-.pagination {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-.first-page-btn {
-  display: flex;
-  width: 34px;
-  height: 34px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 80px;
-  padding-top: 2px;
-  outline: none;
-  border: none;
-  box-sizing: border-box;
-  rotate:180deg;
-  color: var(--text-dark, #23362d);
-  cursor: pointer;
-  /* border: 1px solid #813909; */
-
-}
-.last-page-btn {
-  display: flex;
-  width: 34px;
-  height: 34px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 80px;
-  padding-top: 5px;
-  box-sizing: border-box;
-  outline: none;
-  border: none;
-  color: var(--text-dark, #23362d);
-  cursor: pointer;
-/* border: 1px solid #813909; */
-}
-.page-btn {
-  display: flex;
-  width: 34px;
-  height: 34px;
-  /* padding: 4px; */
-  /* flex-direction: column; */
-  justify-content: center;
-  align-items: center;
-  border-radius: 80px;
-  outline: none;
-  border: none;
-  color: var(--text-dark, #23362d);
-  cursor: pointer;
-  /* border: 1px solid #813909; */
-}
-
-button.active {
-  border-radius: 80px;
-  background: var(--overlay-activated, rgba(0, 161, 83, 0.12));
-  color: var(--primary-light-mode-dark, #006f39);
-  text-align: center;
-}
-
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-</style>
+  it('should not go above the last page', () => {
+    cy.get('[data-test="last-page-btn"]').click();
+    cy.get('[data-test="next-page-btn"]').click(); // Ничего не произойдет
+    cy.get('[data-test="page-btn"].active').contains('N'); // N - номер последней страницы
+  });
+});
 
