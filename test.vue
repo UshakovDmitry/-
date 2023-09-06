@@ -1,68 +1,28 @@
-import {
-  createRouter,
-  createWebHistory,
-  type RouteRecordRaw,
-} from 'vue-router';
-import Auth from '../views/auth/auth.component.vue';
-import Layout from '../layout/dafault.vue';
-import Dashboard from '../views/dashboard/dashboard.component.vue';
-import Map from '../views/map/map.component.vue';
-import Applications from '../views/applications/applications.component.vue';
-import Transport from '../views/transport/transport.component.vue';
-import Delivery from '../views/delivery/delivery.component.vue';
+<template>
+  <router-view />
+</template>
 
-const routes: RouteRecordRaw[] = [
-  {
-    path: '/auth',
-    name: 'Auth',
-    component: Auth,
-    meta: {
-      public: true,
-    },
-  },
-  {
-    path: '/',
-    component: Layout,
-    meta: {},
-    children: [
-      {
-        path: '',
-        redirect: 'dashboard',
-      },
-      {
-        path: 'dashboard',
-        name: 'Dashboard',
-        component: Dashboard,
-      },
-      {
-        path: 'map',
-        name: 'Map',
-        component: Map,
-      },
-      {
-        path: 'applications',
-        name: 'Applications',
-        component: Applications,
-      },
-      {
-        path: 'delivery',
-        name: 'Delivery',
-        component: Delivery,
-      },
-      {
-        path: 'transport',
-        name: 'Transport',
-        component: Transport,
-      },
-    ],
-  },
-];
+<script setup lang="ts"></script>
 
-const router = createRouter({
-  history: createWebHistory(),
-  routes,
-});
+<style lang="scss">
+@import './assets/styles/main.scss';
 
+#app {
+  // border: 2px solid rgb(245, 5, 5);
+  padding-left: 70px;
+  padding-top: 107px;
+  margin: 0px;
+  // padding: 0;
+  width: calc(100% - 107px);
+  min-height: 100vh;
+  color: #2c3e50;
+  background-color: #f8f9fd;
+  margin: 0;
+  border: 1px solid #1e39a8;
+}
 
-export default router;
+.app__content {
+  padding: 0;
+}
+</style>
 
