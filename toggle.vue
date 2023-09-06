@@ -1,45 +1,69 @@
-table-switch.component.vue:13 [Vue warn]: Unhandled error during execution of component event handler 
-  at <TableSwitch.component isTransport=true isLoaders=false onSetTransport=fn<setTransport>  ... > 
-  at <Transport.component onVnodeUnmounted=fn<onVnodeUnmounted> ref=Ref< Proxy(Object) {__v_skip: true} > > 
-  at <RouterView> 
-  at <Dafault onVnodeUnmounted=fn<onVnodeUnmounted> ref=Ref< Proxy(Object) {__v_skip: true} > > 
-  at <RouterView> 
-  at <App>
-warn2 @ runtime-core.esm-bundler.js:41
-logError @ runtime-core.esm-bundler.js:216
-handleError @ runtime-core.esm-bundler.js:208
-callWithErrorHandling @ runtime-core.esm-bundler.js:160
-callWithAsyncErrorHandling @ runtime-core.esm-bundler.js:166
-emit @ runtime-core.esm-bundler.js:664
-(anonymous) @ runtime-core.esm-bundler.js:7422
-_createElementVNode.onClick._cache.<computed>._cache.<computed> @ table-switch.component.vue:13
-callWithErrorHandling @ runtime-core.esm-bundler.js:158
-callWithAsyncErrorHandling @ runtime-core.esm-bundler.js:166
-invoker @ runtime-dom.esm-bundler.js:278
-Show 10 more frames
-Show less
-runtime-core.esm-bundler.js:41 [Vue warn]: Unhandled error during execution of native event handler 
-  at <TableSwitch.component isTransport=true isLoaders=false onSetTransport=fn<setTransport>  ... > 
-  at <Transport.component onVnodeUnmounted=fn<onVnodeUnmounted> ref=Ref< Proxy(Object) {__v_skip: true} > > 
-  at <RouterView> 
-  at <Dafault onVnodeUnmounted=fn<onVnodeUnmounted> ref=Ref< Proxy(Object) {__v_skip: true} > > 
-  at <RouterView> 
-  at <App>
-warn2 @ runtime-core.esm-bundler.js:41
-logError @ runtime-core.esm-bundler.js:216
-handleError @ runtime-core.esm-bundler.js:208
-callWithErrorHandling @ runtime-core.esm-bundler.js:160
-callWithAsyncErrorHandling @ runtime-core.esm-bundler.js:166
-invoker @ runtime-dom.esm-bundler.js:278
-Show 6 more frames
-Show less
-runtime-core.esm-bundler.js:221 Uncaught TypeError: Cannot read properties of undefined (reading 'model')
-    at setLoaders (transport.viewmodel.ts:18:10)
-    at callWithErrorHandling (runtime-core.esm-bundler.js:158:18)
-    at callWithAsyncErrorHandling (runtime-core.esm-bundler.js:166:17)
-    at emit (runtime-core.esm-bundler.js:664:5)
-    at Proxy.<anonymous> (runtime-core.esm-bundler.js:7422:45)
-    at _createElementVNode.onClick._cache.<computed>._cache.<computed> (table-switch.component.vue:13:15)
-    at callWithErrorHandling (runtime-core.esm-bundler.js:158:18)
+import { type TransportComponentModel } from './transport.model';
+
+export class TransportComponentViewModel {
+  model: TransportComponentModel;
+
+  constructor(model: TransportComponentModel) {
+    this.model = model;
+    // this.readFromQueue();
+  }
+
+  selectCity(city: string): void {
+    console.log('city');
+  }
+
+  setLoaders(): void {
+    console.log('setLoaders');
+
+    this.model.isTransport = false;
+    this.model.isLoaders = true;
+  }
+
+  setTransport(): void {
+    console.log('setTransport');
+
+    this.model.isLoaders = false;
+    this.model.isTransport = true;
+  }
+
+  changePage(page: number): void {
+    console.log(page);
+  }
+
+  readFromQueue(): void {
+    const username: string = 'tms';
+    const password: string = '26000567855499290979';
+
+    fetch('http://rabbitmq.next.local/api/queues/%2F/TmsQueue/get', {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        Authorization: `Basic ${btoa(`${username}:${password}`)}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        count: 1,
+        ackmode: 'ack_requeue_true',
+        encoding: 'auto',
+        truncate: 50000,
+      }),
+    })
+      .then(async (response) => {
+        if (response.ok) {
+          console.log(response.json());
+          return await response.json();
+        } else {
+          throw new Error('Возникла ошибка при получении данных');
+        }
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+}
+18)
     at callWithAsyncErrorHandling (runtime-core.esm-bundler.js:166:17)
     at HTMLDivElement.invoker (runtime-dom.esm-bundler.js:278:5)
