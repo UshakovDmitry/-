@@ -1,23 +1,95 @@
-import { test } from 'vitest';
-import { TransportComponentViewModel } from './path-to-your-viewModel';
-import { TransportComponentModel } from './path-to-your-model';
+ this.headersLoaders = [
+      'ФИО',
+      '№ Склада',
+      'График работы',
+      '№ транспорта',
+      'Активность',
+    ];
 
-test('filterTableByCity filters correctly', async () => {
-  const model: TransportComponentModel = {
-    // инициализация вашей модели
-    transport: [
-      { city: 'City1', /* другие поля */ },
-      { city: 'City2', /* другие поля */ },
-    ],
-    filteredTransport: [],
-    isLoaders: false,
-    isTransport: true,
-  };
 
-  const viewModel = new TransportComponentViewModel(model);
-  viewModel.filterTableByCity('City1');
-  
-  if (!Array.isArray(viewModel.model.filteredTransport)) throw new Error('Not an array');
-  if (viewModel.model.filteredTransport.length !== 1) throw new Error('Filtered incorrectly');
-  if (viewModel.model.filteredTransport[0].city !== 'City1') throw new Error('City mismatch');
-});
+this.loaders = [
+      {
+        fullName: 'Иванов Иван Иванович',
+        warehouseNumber: '1',
+        schedule: 'Пн-Пт 9:00-18:00',
+        transportNumber: 'A 123 AA 77',
+        isActive: true,
+      },
+      {
+        fullName: 'Кукин Иван Иванович',
+        warehouseNumber: '1',
+        schedule: 'Пн-Пт 9:00-18:00',
+        transportNumber: 'A 123 AA 77',
+        isActive: true,
+      },
+      {
+        fullName: 'Сидоренко Иван Иванович',
+        warehouseNumber: '1',
+        schedule: 'Пн-Пт 9:00-18:00',
+        transportNumber: 'A 123 AA 77',
+        isActive: true,
+      },
+      {
+        fullName: 'Капалкин Иван Иванович',
+        warehouseNumber: '1',
+        schedule: 'Пн-Пт 9:00-18:00',
+        transportNumber: 'A 123 AA 77',
+        isActive: true,
+      },
+      {
+        fullName: 'Шарапов Иван Иванович',
+        warehouseNumber: '1',
+        schedule: 'Пн-Пт 9:00-18:00',
+        transportNumber: 'A 123 AA 77',
+        isActive: true,
+      },
+      {
+        fullName: 'Питьков Иван Иванович',
+        warehouseNumber: '1',
+        schedule: 'Пн-Пт 9:00-18:00',
+        transportNumber: 'A 123 AA 77',
+        isActive: true,
+      },
+      {
+        fullName: 'Иванов Иван Иванович',
+        warehouseNumber: '1',
+        schedule: 'Пн-Пт 9:00-18:00',
+        transportNumber: 'A 123 AA 77',
+        isActive: true,
+      },
+      {
+        fullName: 'Кукин Иван Иванович',
+        warehouseNumber: '1',
+        schedule: 'Пн-Пт 9:00-18:00',
+        transportNumber: 'A 123 AA 77',
+        isActive: true,
+      },
+      {
+        fullName: 'Сидоренко Иван Иванович',
+        warehouseNumber: '1',
+        schedule: 'Пн-Пт 9:00-18:00',
+        transportNumber: 'A 123 AA 77',
+        isActive: true,
+      },
+      {
+        fullName: 'Капалкин Иван Иванович',
+        warehouseNumber: '1',
+        schedule: 'Пн-Пт 9:00-18:00',
+        transportNumber: 'A 123 AA 77',
+        isActive: true,
+      },
+      {
+        fullName: 'Шарапов Иван Иванович',
+        warehouseNumber: '1',
+        schedule: 'Пн-Пт 9:00-18:00',
+        transportNumber: 'A 123 AA 77',
+        isActive: true,
+      },
+      {
+        fullName: 'Питьков Иван Иванович',
+        warehouseNumber: '1',
+        schedule: 'Пн-Пт 9:00-18:00',
+        transportNumber: 'A 123 AA 77',
+        isActive: true,
+      },
+    ];
