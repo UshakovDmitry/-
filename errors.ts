@@ -1,32 +1,13 @@
-git submodule deinit -f backend/tms-api
+PS C:\Users\ushakov.dmitriy\Desktop\alser.dispatcherworkplaceui> Remove-Item -Recurse -Force backend\tms-api
+PS C:\Users\ushakov.dmitriy\Desktop\alser.dispatcherworkplaceui> git add .
+PS C:\Users\ushakov.dmitriy\Desktop\alser.dispatcherworkplaceui> git commit -m "deldel"
+[develop-3 9e8b90b] deldel
+ 5 files changed, 4829 deletions(-)
+ delete mode 100644 backend/.gitignore
+ delete mode 100644 backend/Dockerfile
+ delete mode 100644 backend/package-lock.json
+ delete mode 100644 backend/package.json
+ delete mode 160000 backend/tms-api
+PS C:\Users\ushakov.dmitriy\Desktop\alser.dispatcherworkplaceui>
 
-git rm --cached backend/tms-api
-
-rm -rf .git/modules/backend/tms-api
-
-Remove-Item -Recurse -Force .git\modules\backend\tms-api
-
-
-git add backend/tms-api
-git commit -m "Added tms-api content directly into the repository"
-
-
-
-[core]
-	repositoryformatversion = 0
-	filemode = false
-	bare = false
-	logallrefupdates = true
-	symlinks = false
-	ignorecase = true
-[remote "origin"]
-	url = http://bitbucket.next.local/scm/vue/alser.dispatcherworkplaceui.git
-	fetch = +refs/heads/*:refs/remotes/origin/*
-[branch "master"]
-	remote = origin
-	merge = refs/heads/master
-
-
-
-
-		Remove-Item -Recurse -Force backend\tms-api
+	
