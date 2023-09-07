@@ -25,3 +25,8 @@ git commit -m "Added tms-api content directly into the repository"
 [branch "master"]
 	remote = origin
 	merge = refs/heads/master
+
+
+
+
+		Remove-Item -Recurse -Force backend\tms-api
