@@ -1,34 +1,22 @@
-PS C:\Users\ushakov.dmitriy\Desktop\alser.dispatcherworkplaceui\backend> git add .
-error: 'backend/tms-api' does not have a commit checked out
-fatal: updating files failed
-PS C:\Users\ushakov.dmitriy\Desktop\alser.dispatcherworkplaceui\backend> git status
-On branch develop-3
-Changes not staged for commit:
-  (use "git add/rm <file>..." to update what will be committed)
-  (use "git restore <file>..." to discard changes in working directory)
-  (commit or discard the untracked or modified content in submodules)
-        deleted:    .gitignore
-        deleted:    Dockerfile
-        deleted:    package-lock.json
-        deleted:    package.json
-        modified:   tms-api (untracked content)
+PS C:\Users\ushakov.dmitriy\Desktop\alser.dispatcherworkplaceui> cd c:\Users\ushakov.dmitriy\Desktop\alser.dispatcherworkplaceui\backend\tms-api
+PS C:\Users\ushakov.dmitriy\Desktop\alser.dispatcherworkplaceui\backend\tms-api> git status
+On branch master
 
-no changes added to commit (use "git add" and/or "git commit -a")
-PS C:\Users\ushakov.dmitriy\Desktop\alser.dispatcherworkplaceui\backend> cd ..
-PS C:\Users\ushakov.dmitriy\Desktop\alser.dispatcherworkplaceui> git add .
-error: 'backend/tms-api' does not have a commit checked out
-fatal: updating files failed
-PS C:\Users\ushakov.dmitriy\Desktop\alser.dispatcherworkplaceui> git commit -m "nest added"
-On branch develop-3
-Changes not staged for commit:
-  (use "git add/rm <file>..." to update what will be committed)
-  (use "git restore <file>..." to discard changes in working directory)
-  (commit or discard the untracked or modified content in submodules)
-        deleted:    backend/.gitignore
-        deleted:    backend/Dockerfile
-        deleted:    backend/package-lock.json
-        deleted:    backend/package.json
-        modified:   backend/tms-api (untracked content)
+No commits yet
 
-no changes added to commit (use "git add" and/or "git commit -a")
-PS C:\Users\ushakov.dmitriy\Desktop\alser.dispatcherworkplaceui>
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .eslintrc.js
+        .gitignore
+        .prettierrc
+        README.md
+        nest-cli.json
+        package-lock.json
+        package.json
+        src/
+        test/
+        tsconfig.build.json
+        tsconfig.json
+
+nothing added to commit but untracked files present (use "git add" to track)
+PS C:\Users\ushakov.dmitriy\Desktop\alser.dispatcherworkplaceui\backend\tms-api>
