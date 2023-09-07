@@ -1,14 +1,29 @@
-PS C:\Users\ushakov.dmitriy\Desktop\alser.dispatcherworkplaceui> Remove-Item -Recurse -Force backend\tms-api
-PS C:\Users\ushakov.dmitriy\Desktop\alser.dispatcherworkplaceui> git add .
-PS C:\Users\ushakov.dmitriy\Desktop\alser.dispatcherworkplaceui> git commit -m "deldel"
-[develop-3 9e8b90b] deldel
- 5 files changed, 4829 deletions(-)
- delete mode 100644 backend/.gitignore
- delete mode 100644 backend/Dockerfile
- delete mode 100644 backend/package-lock.json
- delete mode 100644 backend/package.json
- delete mode 160000 backend/tms-api
-PS C:\Users\ushakov.dmitriy\Desktop\alser.dispatcherworkplaceui>
+PS C:\Users\ushakov.dmitriy\Desktop\alser.dispatcherworkplaceui> cd c:\Users\ushakov.dmitriy\Desktop\alser.dispatcherworkplaceui\backend
+PS C:\Users\ushakov.dmitriy\Desktop\alser.dispatcherworkplaceui\backend> nest new tsm-backend
+nest : Имя "nest" не распознано как имя командлета, функции, файла сценария или выполняемой программы. Проверьте правильность написания имени, а также наличие и правильность пути, после ч
+его повторите попытку.
+строка:1 знак:1
++ nest new tsm-backend
++ ~~~~
+    + CategoryInfo          : ObjectNotFound: (nest:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+PS C:\Users\ushakov.dmitriy\Desktop\alser.dispatcherworkplaceui\backend>  npm i -g @nestjs/cli
 
+changed 263 packages, and audited 264 packages in 33s
+
+44 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+PS C:\Users\ushakov.dmitriy\Desktop\alser.dispatcherworkplaceui\backend> nest new tsm-api
+nest : Имя "nest" не распознано как имя командлета, функции, файла сценария или выполняемой программы. Проверьте правильность написания имени, а также наличие и правильность пути, после ч
+его повторите попытку.
+строка:1 знак:1
++ nest new tsm-api
++ ~~~~
+    + CategoryInfo          : ObjectNotFound: (nest:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+PS C:\Users\ushakov.dmitriy\Desktop\alser.dispatcherworkplaceui\backend>
 	
-nest new tsm-api
