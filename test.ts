@@ -40,3 +40,19 @@ describe('Search and Dropdown Tests', () => {
       .type(`${numberPPO}{enter}`);
   });
 });
+////////////////////////
+describe('Pagination Tests', () => {
+  beforeEach(() => {
+    cy.visit('/transport');
+  });
+
+  // Add your pagination tests here
+  it('should have navigation buttons', () => {
+    cy.get('[data-test="first-page-btn"]').should('exist');
+    cy.get('[data-test="prev-page-btn"]').should('exist');
+    cy.get('[data-test="next-page-btn"]').should('exist');
+    cy.get('[data-test="last-page-btn"]').should('exist');
+  });
+
+  // ... other pagination tests
+});
