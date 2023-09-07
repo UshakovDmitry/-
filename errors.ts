@@ -1,22 +1,8 @@
-PS C:\Users\ushakov.dmitriy\Desktop\alser.dispatcherworkplaceui> cd c:\Users\ushakov.dmitriy\Desktop\alser.dispatcherworkplaceui\backend\tms-api
-PS C:\Users\ushakov.dmitriy\Desktop\alser.dispatcherworkplaceui\backend\tms-api> git status
-On branch master
+git submodule deinit -f backend/tms-api
 
-No commits yet
+git rm --cached backend/tms-api
 
-Untracked files:
-  (use "git add <file>..." to include in what will be committed)
-        .eslintrc.js
-        .gitignore
-        .prettierrc
-        README.md
-        nest-cli.json
-        package-lock.json
-        package.json
-        src/
-        test/
-        tsconfig.build.json
-        tsconfig.json
+rm -rf .git/modules/backend/tms-api
 
-nothing added to commit but untracked files present (use "git add" to track)
-PS C:\Users\ushakov.dmitriy\Desktop\alser.dispatcherworkplaceui\backend\tms-api>
+git add backend/tms-api
+git commit -m "Added tms-api content directly into the repository"
