@@ -1,55 +1,72 @@
-import { Client } from '@stomp/stompjs';
-import { type TransportComponentModel } from './transport.model';
+PS C:\Users\ushakov.dmitriy\Desktop\Projects\alser.dispatcherworkplaceui\backend> npm i -g @nestjs/cli
 
-export class TransportComponentViewModel {
-  model: TransportComponentModel;
-  client: Client;  // Добавьте эту строку
+added 263 packages, and audited 264 packages in 43s
 
-  constructor(model: TransportComponentModel) {
-    this.model = model;
-    this.initializeStompClient();  // Добавьте эту строку
-    this.readFromQueue();
-  }
+44 packages are looking for funding
+  run `npm fund` for details
 
-  initializeStompClient(): void {  // Добавьте этот метод
-    this.client = new Client({
-      brokerURL: 'ws://rabbitmq.next.local:15674/ws',
-      connectHeaders: {
-        login: 'tms',
-        passcode: '26000567855499290979',
-      },
-    });
+found 0 vulnerabilities
+PS C:\Users\ushakov.dmitriy\Desktop\Projects\alser.dispatcherworkplaceui\backend> nest new .
+nest : Имя "nest" не распознано как имя командлета, функции, файла сценария или выполняемой программы. Проверьте правильность написания имени, а также наличие и правильность пути, после чего повторите попытку.
+строка:1 знак:1
++ nest new .
++ ~~~~
+    + CategoryInfo          : ObjectNotFound: (nest:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+PS C:\Users\ushakov.dmitriy\Desktop\Projects\alser.dispatcherworkplaceui\backend>  nest new tms-api --strict
+nest : Имя "nest" не распознано как имя командлета, функции, файла сценария или выполняемой программы. Проверьте правильность написания имени, а также наличие и правильность пути, после чего повторите попытку.
+строка:1 знак:2
++  nest new tms-api --strict
++  ~~~~
+    + CategoryInfo          : ObjectNotFound: (nest:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+PS C:\Users\ushakov.dmitriy\Desktop\Projects\alser.dispatcherworkplaceui\backend> npm i -g @nestjs/cli
 
-    this.client.onConnect = (frame) => {
-      console.log('Connected:', frame);
-      this.client.subscribe('/queue/TmsQueue', (message) => {
-        console.log('Received:', message.body);
-      });
-    };
+changed 263 packages, and audited 264 packages in 26s
 
-    this.client.onStompError = (frame) => {
-      console.error('Broker reported error:', frame.headers['message']);
-      console.error('Additional details:', frame.body);
-    };
+44 packages are looking for funding
+  run `npm fund` for details
 
-    this.client.activate();
-  }
+found 0 vulnerabilities
+PS C:\Users\ushakov.dmitriy\Desktop\Projects\alser.dispatcherworkplaceui\backend>  nest new tms-api --strict
+nest : Имя "nest" не распознано как имя командлета, функции, файла сценария или выполняемой программы. Проверьте правильность написания имени, а также наличие и правильность пути, после чего повторите попытку.
+строка:1 знак:2
++  nest new tms-api --strict
++  ~~~~
+    + CategoryInfo          : ObjectNotFound: (nest:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+PS C:\Users\ushakov.dmitriy\Desktop\Projects\alser.dispatcherworkplaceui\backend> sudo nest new tms-api --strict
+sudo : Имя "sudo" не распознано как имя командлета, функции, файла сценария или выполняемой программы. Проверьте правильность написания имени, а также наличие и правильность пути, после чего повторите попытку.
+строка:1 знак:1
++ sudo nest new tms-api --strict
++ ~~~~
+    + CategoryInfo          : ObjectNotFound: (sudo:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+PS C:\Users\ushakov.dmitriy\Desktop\Projects\alser.dispatcherworkplaceui\backend>  nest new tms-api
+nest : Имя "nest" не распознано как имя командлета, функции, файла сценария или выполняемой программы. Проверьте правильность написания имени, а также наличие и правильность пути, после чего повторите попытку.
+строка:1 знак:2
++  nest new tms-api
++  ~~~~
+    + CategoryInfo          : ObjectNotFound: (nest:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+PS C:\Users\ushakov.dmitriy\Desktop\Projects\alser.dispatcherworkplaceui\backend> npm i  @nestjs/cli
 
-  setLoaders(): void {
-    this.model.isTransport = false;
-    this.model.isLoaders = true;
-  }
+added 263 packages, and audited 264 packages in 18s
 
-  setTransport(): void {
-    this.model.isLoaders = false;
-    this.model.isTransport = true;
-  }
+44 packages are looking for funding
+  run `npm fund` for details
 
-  changePage(page: number): void {
-    console.log(page);
-  }
+found 0 vulnerabilities
+PS C:\Users\ushakov.dmitriy\Desktop\Projects\alser.dispatcherworkplaceui\backend>  nest new tms-api
+nest : Имя "nest" не распознано как имя командлета, функции, файла сценария или выполняемой программы. Проверьте правильность написания имени, а также наличие и правильность пути, после чего повторите попытку.
+строка:1 знак:2
++  nest new tms-api
++  ~~~~
+    + CategoryInfo          : ObjectNotFound: (nest:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
 
-  readFromQueue(): void {
-    // Этот метод теперь пуст, так как все делается в initializeStompClient()
-  }
-}
